@@ -20,9 +20,9 @@
     </nav>
 
     <!-- Botón -->
-    <button button (click)="goToLogin()" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-lg text-lg font-semibold">
+    <a routerLink="/login" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-lg text-lg font-semibold">
       Iniciar sesión
-    </button>
+    </a>
   </header>
 
   <!-- Hero -->
@@ -54,103 +54,112 @@
                   </p>
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center gap-8">
-                  <div class="bg-zinc-900 rounded-2xl text-center overflow-hidden p-8 border border-zinc-800 transition-all duration-300 ease-in hover:border-orange-500 hover:shadow-lg hover:shadow-orange-500/20">
-                      <div class="py-4">
-                          <h2 class="font-bold text-3xl text-white">Básico</h2>
-                          <h3 class="font-normal text-orange-500 text-2xl mt-2">
-                              S/59<sup class="text-lg">.90</sup>/mes
-                          </h3>
-                      </div>
-                      <div class="mt-4">
-                          <p class="text-gray-500 text-sm">Ideal para empezar con buen pie.</p>
-                          <ul class="leading-8 text-lg text-gray-300 mt-6 space-y-2 text-left">
-                              <li class="flex items-center space-x-2">
-                                  <svg class="h-5 w-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                                  </svg>
-                                  <span>Acceso completo a máquinas</span>
-                              </li>
-                              <li class="flex items-center space-x-2">
-                                  <svg class="h-5 w-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                                  </svg>
-                                  <span>Participación en clases grupales</span>
-                              </li>
-                              <li class="flex items-center space-x-2">
-                                  <svg class="h-5 w-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                                  </svg>
-                                  <span>Asesoría inicial con entrenador</span>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
+              <!-- Sección de Membresías Responsiva -->
+<div class="antialiased w-full bg-black text-gray-400 font-sans py-20 px-4 sm:px-10">
+  <div class="container mx-auto">
+    <!-- Título -->
+    <div class="text-center mb-16">
+      <h1 class="font-bold text-4xl sm:text-5xl text-white tracking-tight">
+        Elige tu Membresía Ideal
+      </h1>
+      <p class="text-xl text-gray-400 mt-4">
+        Tenemos opciones para cada meta y estilo de vida.
+      </p>
+    </div>
 
-                  <div class="bg-zinc-900 rounded-2xl text-center overflow-hidden p-8 border border-zinc-800 transition-all duration-300 ease-in hover:border-orange-500 hover:shadow-lg hover:shadow-orange-500/20">
-                      <div class="py-4">
-                          <h2 class="font-bold text-3xl text-white">Intermedio</h2>
-                          <h3 class="font-normal text-orange-500 text-2xl mt-2">
-                              S/99<sup class="text-lg">.90</sup>/mes
-                          </h3>
-                      </div>
-                      <div class="mt-4">
-                          <p class="text-gray-500 text-sm">El impulso que necesitas para avanzar.</p>
-                          <ul class="leading-8 text-lg text-gray-300 mt-6 space-y-2 text-left">
-                              <li class="flex items-center space-x-2">
-                                  <svg class="h-5 w-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                                  </svg>
-                                  <span>Todas las ventajas del plan Básico</span>
-                              </li>
-                              <li class="flex items-center space-x-2">
-                                  <svg class="h-5 w-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                                  </svg>
-                                  <span>Rutinas de entrenamiento personalizadas</span>
-                              </li>
-                              <li class="flex items-center space-x-2">
-                                  <svg class="h-5 w-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                                  </svg>
-                                  <span>2 asesorías mensuales con tu coach</span>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
+    <!-- Membresías combinadas -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Básico -->
+      <div class="bg-zinc-900 rounded-2xl text-center p-8 border border-zinc-800 flex flex-col justify-between hover:border-orange-500 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 ease-in">
+        <div>
+          <h2 class="font-bold text-3xl text-white">Básico</h2>
+          <h3 class="font-normal text-orange-500 text-2xl mt-2">S/59<sup>.90</sup>/mes</h3>
+          <p class="text-gray-500 text-sm mt-2">Ideal para empezar con buen pie.</p>
+          <ul class="leading-8 text-lg text-gray-300 mt-6 space-y-2 text-left">
+            <li>Acceso completo a máquinas</li>
+            <li>Participación en clases grupales</li>
+            <li>Asesoría inicial con entrenador</li>
+          </ul>
+        </div>
+      </div>
 
-                  <div class="bg-zinc-900 rounded-2xl text-center overflow-hidden p-8 border border-zinc-800 transition-all duration-300 ease-in hover:border-orange-500 hover:shadow-lg hover:shadow-orange-500/20">
-                      <div class="py-4">
-                          <h2 class="font-bold text-3xl text-white">Premium</h2>
-                          <h3 class="font-normal text-orange-500 text-2xl mt-2">
-                              S/149<sup class="text-lg">.90</sup>/mes
-                          </h3>
-                      </div>
-                      <div class="mt-4">
-                          <p class="text-gray-500 text-sm">La experiencia completa para resultados garantizados.</p>
-                          <ul class="leading-8 text-lg text-gray-300 mt-6 space-y-2 text-left">
-                              <li class="flex items-center space-x-2">
-                                  <svg class="h-5 w-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                                  </svg>
-                                  <span>Todas las ventajas del plan Intermedio</span>
-                              </li>
-                              <li class="flex items-center space-x-2">
-                                  <svg class="h-5 w-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                                  </svg>
-                                  <span>Plan nutricional personalizado</span>
-                              </li>
-                              <li class="flex items-center space-x-2">
-                                  <svg class="h-5 w-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
-                                  </svg>
-                                  <span>Sesiones privadas con entrenador personal</span>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
+      <!-- Intermedio -->
+      <div class="bg-zinc-900 rounded-2xl text-center p-8 border border-zinc-800 flex flex-col justify-between hover:border-orange-500 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 ease-in">
+        <div>
+          <h2 class="font-bold text-3xl text-white">Intermedio</h2>
+          <h3 class="font-normal text-orange-500 text-2xl mt-2">S/99<sup>.90</sup>/mes</h3>
+          <p class="text-gray-500 text-sm mt-2">El impulso que necesitas para avanzar.</p>
+          <ul class="leading-8 text-lg text-gray-300 mt-6 space-y-2 text-left">
+            <li>Todas las ventajas del plan Básico</li>
+            <li>Rutinas de entrenamiento personalizadas</li>
+            <li>2 asesorías mensuales con tu coach</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Premium -->
+      <div class="bg-zinc-900 rounded-2xl text-center p-8 border border-zinc-800 flex flex-col justify-between hover:border-orange-500 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 ease-in">
+        <div>
+          <h2 class="font-bold text-3xl text-white">Premium</h2>
+          <h3 class="font-normal text-orange-500 text-2xl mt-2">S/149<sup>.90</sup>/mes</h3>
+          <p class="text-gray-500 text-sm mt-2">La experiencia completa para resultados garantizados.</p>
+          <ul class="leading-8 text-lg text-gray-300 mt-6 space-y-2 text-left">
+            <li>Todas las ventajas del plan Intermedio</li>
+            <li>Plan nutricional personalizado</li>
+            <li>Sesiones privadas con entrenador personal</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Express -->
+      <div class="bg-zinc-900 rounded-2xl text-center p-8 border border-zinc-800 flex flex-col justify-between hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 ease-in">
+        <div>
+          <h2 class="font-bold text-3xl text-white">Express</h2>
+          <h3 class="font-normal text-blue-500 text-2xl mt-2">S/39<sup>.90</sup>/mes</h3>
+          <p class="text-gray-500 text-sm mt-2">Ideal para quienes van de forma ocasional.</p>
+          <ul class="leading-8 text-lg text-gray-300 mt-6 space-y-2 text-left">
+            <li>Acceso limitado a máquinas</li>
+            <li>1 clase grupal semanal</li>
+            <li>Asesoría básica en la primera visita</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Pro -->
+      <div class="bg-zinc-900 rounded-2xl text-center p-8 border border-zinc-800 flex flex-col justify-between hover:border-green-500 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300 ease-in">
+        <div>
+          <h2 class="font-bold text-3xl text-white">Pro</h2>
+          <h3 class="font-normal text-green-500 text-2xl mt-2">S/119<sup>.90</sup>/mes</h3>
+          <p class="text-gray-500 text-sm mt-2">Para quienes buscan resultados avanzados.</p>
+          <ul class="leading-8 text-lg text-gray-300 mt-6 space-y-2 text-left">
+            <li>Acceso completo a todas las máquinas</li>
+            <li>Clases grupales ilimitadas</li>
+            <li>Rutina personalizada mensual</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- VIP -->
+      <div class="bg-zinc-900 rounded-2xl text-center p-8 border border-zinc-800 flex flex-col justify-between hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 ease-in">
+        <div>
+          <h2 class="font-bold text-3xl text-white">VIP</h2>
+          <h3 class="font-normal text-purple-500 text-2xl mt-2">S/199<sup>.90</sup>/mes</h3>
+          <p class="text-gray-500 text-sm mt-2">Experiencia completa y exclusiva.</p>
+          <ul class="leading-8 text-lg text-gray-300 mt-6 space-y-2 text-left">
+            <li>Acceso 24/7 a todas las instalaciones</li>
+            <li>Clases privadas y grupales ilimitadas</li>
+            <li>Asesoría nutricional y coaching personal</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
 
               <div class="text-center mt-12">
                   <a
