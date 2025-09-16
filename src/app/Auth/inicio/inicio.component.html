@@ -20,9 +20,24 @@
     </nav>
 
     <!-- Botón -->
-    <button button (click)="goToLogin()"class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-lg text-lg font-semibold">
-      Iniciar sesión
-    </button>
+    <div *ngIf="!user; else loggedInTemplate">
+      <button (click)="goToLogin()" 
+        class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-lg text-lg font-semibold">
+        Iniciar sesión
+      </button>
+    </div>
+    
+    <ng-template #loggedInTemplate>
+      <div class="flex items-center space-x-4">
+        <span class="text-white font-semibold">
+          👋 Hola, {{ user?.name }} ({{ user?.plan }})
+        </span>
+        <button (click)="logout()" 
+          class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+          Cerrar sesión
+        </button>
+      </div>
+    </ng-template>
   </header>
 
   <!-- Hero with Carousel -->

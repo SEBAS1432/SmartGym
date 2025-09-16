@@ -1,1 +1,56 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <div class="dashboard">
+      <h2>👋 Bienvenido, {{ user?.name }}</h2>
+  
+      <!-- Contenedor tarjeta + botones -->
+      <div class="card-and-buttons-container">
+        
+        <!-- Tarjeta de Membresía -->
+        <div class="membership-card">
+          <div class="card-header">
+            <div class="gym-logo">POWER GYM</div>
+            <div class="membership-icon">💪</div>
+          </div>
+          
+          <div class="card-body">
+            <div class="membership-type">{{ getPlanDisplayName(user?.plan || '') }}</div>
+            <div class="member-name">{{ user?.name }}</div>
+            <div class="member-id" *ngIf="user?.memberId">ID: {{ user?.memberId }}</div>
+          </div>
+          
+          <div class="card-footer">
+            <div class="card-chip"></div>
+            <div class="valid-date">
+              <div class="date-label">VÁLIDA HASTA</div>
+              <div class="date-value">{{ user?.validUntil }}</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Botones alineados a la derecha -->
+        <div class="action-buttons">
+          <button class="home-btn" (click)="goHome()">
+            <span class="btn-text">🏠 Volver al inicio</span>
+          </button>
+          
+          <button class="logout-btn" (click)="logout()">
+            <span class="btn-text">Cerrar sesión</span>
+          </button>
+        </div>
+      </div>
+  
+      <hr />
+  
+      <h3>📋 Secciones</h3>
+      <ul class="sections-list">
+        <li 
+          *ngFor="let section of sections; let i = index" 
+          (click)="navigateToSection(section.route)"
+          [style.--delay]="(i + 1) * 0.1 + 's'"
+          class="section-item">
+          {{ section.name }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

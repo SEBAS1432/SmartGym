@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+// dashboard.component.ts
+import { Component, OnInit } from '@angular/core';
+import { AuthService, User } from '../../Core/services/auth.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../Core/services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,16 +11,51 @@ import { AuthService } from '../../Core/services/auth.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
-  user: any;
+export class DashboardComponent implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router) {
-    this.user = this.auth.getCurrentUser();
+  user: User | null = null;
+
+  sections = [
+    { name: 'Rutinas personalizadas', icon: '🏃‍♀️', route: '/rutinas' },
+    { name: 'Clases disponibles', icon: '📚', route: '/clases' },
+    { name: 'Progreso de entrenamiento', icon: '📊', route: '/progreso' }
+  ];
+
+  constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.user = this.authService.getCurrentUser();
+    if (!this.user) {
+      // Si no hay usuario, lo mandamos al login
+      this.router.navigate(['/login']);
+    }
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  navigateToSection(route: string): void {
+    this.router.navigate([route]);
+  }
+
+  getPlanDisplayName(plan: string): string {
+    const planNames: { [key: string]: string } = {
+      'premium': 'Premium',
+      'basic': 'Básico',
+      'pro': 'Pro'
+    };
+    return planNames[plan.toLowerCase()] || plan;
+  }
+
+  goHome(): void {
+    this.router.navigate(['/']);
   }
   
 
-  logout() {
-    this.auth.logout();
-    this.router.navigate(['/login']);
+  getCurrentDate(): string {
+    return new Date().toLocaleDateString();
   }
 }
+
