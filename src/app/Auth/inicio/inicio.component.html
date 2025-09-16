@@ -20,25 +20,59 @@
     </nav>
 
     <!-- Botón -->
-    <button button (click)="goToLogin()" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-lg text-lg font-semibold">
-      Sesión
+    <button button (click)="goToLogin()"class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-lg text-lg font-semibold">
+      Iniciar sesión
     </button>
   </header>
 
-  <!-- Hero -->
-  <section class="h-screen flex flex-col justify-center items-center text-center px-6 bg-gradient-to-b from-black to-neutral-900">
-    <h2 class="text-5xl md:text-7xl font-extrabold leading-tight">
-      TRANSFORMA TU <span class="text-orange-500">CUERPO</span> <br />
-      TRANSFORMA TU VIDA
-    </h2>
-    <p class="mt-6 text-lg md:text-xl text-gray-400">
-      El gimnasio donde los límites no existen 💪
-    </p>
-    <a routerLink="/login" class="mt-8 bg-orange-600 hover:bg-orange-700 px-8 py-4 rounded-xl text-lg font-semibold transition">
-      Comienza ahora
-    </a>
-    <!-- Imagen hero -->
-    <img src="https://images.unsplash.com/photo-1571019613914-85f342c55f55" alt="Gimnasio" class="mt-12 max-w-4xl rounded-2xl shadow-2xl" />
+  <!-- Hero with Carousel -->
+  <section class="h-screen flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
+    <!-- Carousel Background -->
+    <div class="absolute inset-0 z-0">
+      <div id="carousel" class="relative w-full h-full">
+        <!-- Slide 1 -->
+        <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 opacity-100">
+          <img src="https://images.unsplash.com/photo-1571019613914-85f342c55f55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+               alt="Gimnasio moderno" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        </div>
+        
+        <!-- Slide 2 -->
+        <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+               alt="Persona entrenando" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
+          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+               alt="Clase grupal" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content over carousel -->
+    <div class="relative z-10 max-w-4xl mx-auto">
+      <h2 class="text-5xl md:text-7xl font-extrabold leading-tight">
+        TRANSFORMA TU <span class="text-orange-500">CUERPO</span> <br />
+        TRANSFORMA TU VIDA
+      </h2>
+      <p class="mt-6 text-lg md:text-xl text-gray-300">
+        El gimnasio donde los límites no existen 💪
+      </p>
+      <a href="#" class="mt-8 inline-block bg-orange-600 hover:bg-orange-700 px-8 py-4 rounded-xl text-lg font-semibold transition">
+        Comienza ahora
+      </a>
+    </div>
+
+    <!-- Carousel indicators -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+      <button class="carousel-indicator w-3 h-3 rounded-full bg-white opacity-75 transition-opacity" data-slide="0"></button>
+      <button class="carousel-indicator w-3 h-3 rounded-full bg-white opacity-50 transition-opacity" data-slide="1"></button>
+      <button class="carousel-indicator w-3 h-3 rounded-full bg-white opacity-50 transition-opacity" data-slide="2"></button>
+    </div>
   </section>
 
   <!-- Pricing Section -->
