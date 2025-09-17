@@ -13,12 +13,4 @@ export class MembresiaComponent {
   goToLogin() {
     this.router.navigate(['/login']);
   }
-
-  goToPlanes() {
-  const element = document.getElementById("Planes");
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-}
-
 }
