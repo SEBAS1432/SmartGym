@@ -5,6 +5,7 @@ import { DashboardComponent } from './Auth/dashboard/dashboard.component';
 import { authGuard } from './Core/guards/auth.guard';
 import { guestGuard } from './Core/guards/guest.guard';
 import { MembresiaComponent } from './Auth/membresia/membresia.component';
+import { ContactoComponent } from './Auth/contacto/contacto.component';
 
 export const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
@@ -20,6 +21,12 @@ export const routes: Routes = [
         (m) => m.DashboardComponent
       ),
   },
+  {
+    path: 'inicio',
+    loadComponent: () =>
+      import('./Auth/inicio/inicio.component').then(m => m.InicioComponent),
+  },
+  { path: 'contacto', component: ContactoComponent },
 
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
 

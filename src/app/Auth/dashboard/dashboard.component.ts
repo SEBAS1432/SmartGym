@@ -18,7 +18,8 @@ export class DashboardComponent implements OnInit {
   sections = [
     { name: 'Rutinas personalizadas', icon: '🏃‍♀️', route: '/rutinas' },
     { name: 'Clases disponibles', icon: '📚', route: '/clases' },
-    { name: 'Progreso de entrenamiento', icon: '📊', route: '/progreso' }
+    { name: 'Progreso de entrenamiento', icon: '📊', route: '/progreso' },
+    { name: 'Contacto', icon: '📞', route: '/contacto' }
   ];
 
   constructor(private authService: AuthService, private router: Router) { }
