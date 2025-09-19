@@ -32,6 +32,21 @@ export class ContactoComponent {
     { value: 'otros', label: 'Otros' }
   ];
 
+  // --- 🔹 Nuevo: Estado para mostrar/ocultar el mapa
+  mostrarMapa: boolean = false;
+
+  toggleMapa() {
+    this.mostrarMapa = !this.mostrarMapa;
+
+    // 🔹 Si se despliega, hacer scroll suave al mapa
+    if (this.mostrarMapa) {
+      setTimeout(() => {
+        const mapa = document.getElementById("mapaContainer");
+        mapa?.scrollIntoView({ behavior: "smooth" });
+      }, 300); // espera a que empiece la animación
+    }
+  }
+
   async enviarFormulario() {
     if (!this.validarFormulario()) {
       return;
