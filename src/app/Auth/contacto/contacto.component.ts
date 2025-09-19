@@ -53,6 +53,14 @@ export class ContactoComponent {
     }
   }
 
+  goToWhatsapp() {
+    const phone = '51930682185';
+    const message = 'Hola quiero más información sobre SmartGym';
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  }
+  
+
   private validarFormulario(): boolean {
     if (!this.nombre.trim()) {
       this.error = 'El nombre es requerido';
