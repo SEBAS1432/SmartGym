@@ -1,18 +1,28 @@
 // auth.service.ts
 import { Injectable } from '@angular/core';
-import { USERS } from '../../mock-data/users';
-
-export interface User {
-  name: string;
-  plan: string;
-  validUntil: string;
-  memberId?: string;
-  email?: string;
-}
+import { USERS, User, AuthenticatedUser } from '../../mock-data/users';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private currentUser: User | null = null;
+  private usuarios: User[] = USERS;
+
+  constructor() { }
+
+  agregarUsuario(datosRegistro: { name: string, lastname: string, email: string, password: string }) {
+    
+    const nuevoUsuario: User = {
+      name: datosRegistro.name,
+      lastname: datosRegistro.lastname,
+      email: datosRegistro.email,
+      password: datosRegistro.password
+    };
+  
+    this.usuarios.push(nuevoUsuario);
+    console.log('Nuevo usuario registrado (sin membresía):', this.usuarios);
+  }
+
+  private currentUser: AuthenticatedUser | null = null;
+
 
   private storageAvailable(): boolean {
     return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
@@ -33,7 +43,7 @@ export class AuthService {
     return false;
   }
 
-  getCurrentUser(): User | null {
+  getCurrentUser(): AuthenticatedUser | null {
     if (!this.currentUser && this.storageAvailable()) {
       const saved = localStorage.getItem('currentUser');
       if (saved) this.currentUser = JSON.parse(saved);

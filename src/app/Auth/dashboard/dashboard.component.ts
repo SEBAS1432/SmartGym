@@ -1,8 +1,10 @@
 // dashboard.component.ts
 import { Component, OnInit } from '@angular/core';
-import { AuthService, User } from '../../Core/services/auth.service';
+import { AuthService } from '../../Core/services/auth.service';
+import { User } from '../../mock-data/users'; // <-- Importa 'User' desde su archivo original
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthenticatedUser } from '../../mock-data/users';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +15,7 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardComponent implements OnInit {
 
-  user: User | null = null;
+  user: AuthenticatedUser | null = null;
 
   sections = [
     { name: 'Rutinas personalizadas', icon: '🏃‍♀️', route: '/rutinas' },
