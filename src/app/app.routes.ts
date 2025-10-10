@@ -6,9 +6,12 @@ import { authGuard } from './Core/guards/auth.guard';
 import { guestGuard } from './Core/guards/guest.guard';
 import { MembresiaComponent } from './Auth/membresia/membresia.component';
 import { ContactoComponent } from './Auth/contacto/contacto.component';
+import { RegistroComponent } from './Auth/registro/registro.component';
 
 export const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
+
+  { path: 'registro', component: RegistroComponent },
 
   { path: 'login', component: LoginComponent },
 
