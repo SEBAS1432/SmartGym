@@ -1,22 +1,16 @@
 <div class="min-h-screen bg-black text-white font-sans">
   <!-- Navbar -->
   <header class="flex items-center justify-between px-8 py-4 bg-black fixed top-0 w-full z-50">
-    <!-- Logo con triángulo a la izquierda -->
-    <a href="/" class="inline-flex items-center space-x-2">
-      <!-- Triángulo -->
-      <svg class="h-9 w-auto text-orange-500" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L2 22h20L12 2zM12 6.83L17.17 18H6.83L12 6.83z"></path>
-      </svg>
-      <!-- Texto -->
-      <span class="text-3xl font-extrabold tracking-wider">SMARTGYM</span>
+    <a href="/" class="inline-flex items-center">
+      <img src="assets/img/logo.png" alt="SmartGym Logo" class="max-h-14 w-auto">
     </a>
 
     <!-- Links -->
-    <nav class="hidden md:flex space-x-8 text-white text-base font-bold uppercase tracking-wide">
-      <a routerLink="/inicio" class="hover:text-white">Inicio</a>
-      <a routerLink="/servicios" class="hover:text-white">Servicios</a>
-      <a routerLink="/membresia" class="hover:text-white">Planes</a>
-      <a routerLink="/contacto" class="hover:text-white">Contacto</a>
+    <nav class="hidden md:flex space-x-8 text-white text-base font-bold uppercase tracking-wide relative z-50">
+      <a routerLink="/inicio" class="hover:text-orange-400 cursor-pointer transition-colors">Inicio</a>
+      <a routerLink="/servicios" class="hover:text-orange-400 cursor-pointer transition-colors">Servicios</a>
+      <a routerLink="/membresia" class="hover:text-orange-400 cursor-pointer transition-colors">Planes</a>
+      <a routerLink="/contacto" class="hover:text-orange-400 cursor-pointer transition-colors">Contacto</a>
     </nav>
 
 
@@ -41,71 +35,35 @@
     </ng-template>
   </header>
 
-  <section class="h-screen flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
-    <!-- Carrusel -->
-    <div class="absolute inset-0 z-0">
-      <div  id="carousel" class="relative w-full h-full">
-        <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100">
-          <img src="assets/img/carrusel1.webp" alt="Gimnasio moderno" class="w-full h-full object-cover">
-        </div>
-        <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0">
-          <img src="assets/img/carrusel2.jpg" alt="Persona entrenando" class="w-full h-full object-cover">
-        </div>
-        <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0">
-          <img src="assets/img/carrusel3.jpg" alt="Clase grupal" class="w-full h-full object-cover">
-        </div>
-      </div>
-    </div>
-
-    <!-- Contenido -->
-    <div class="relative z-10 max-w-4xl mx-auto">
-      <h2 class="text-5xl md:text-7xl font-extrabold leading-tight text-white drop-shadow-lg">
-        TRANSFORMA TU <span class="text-orange-500">CUERPO</span> <br />
-        TRANSFORMA TU VIDA
-      </h2>
-      <p class="mt-6 text-lg md:text-xl text-gray-200 drop-shadow-md">
-        El gimnasio donde los límites no existen 
-      </p>
-      <a href="#"
-        class="mt-8 inline-block bg-orange-600 hover:bg-orange-700 px-8 py-4 rounded-xl text-lg font-semibold shadow-lg transition transform hover:scale-105">
-        Comienza ahora
-      </a>
-    </div>
-
-    <!-- Indicadores -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-      <button class="carousel-indicator w-4 h-4 rounded-full bg-white opacity-80 hover:opacity-100 transition" data-slide="0"></button>
-      <button class="carousel-indicator w-4 h-4 rounded-full bg-white opacity-50 hover:opacity-80 transition" data-slide="1"></button>
-      <button class="carousel-indicator w-4 h-4 rounded-full bg-white opacity-50 hover:opacity-80 transition" data-slide="2"></button>
-    </div>
-
-   
+  <section class="h-screen relative overflow-hidden">
+    <img src="assets/img/portadafinal.png" alt="Gimnasio moderno" class="w-full h-full object-cover">
   </section>
+
 
   <section class="bg-black py-20 sm:py-28 relative overflow-hidden">
     <div class="relative container mx-auto max-w-7xl px-6 lg:px-8">
       
       <div class="text-center mb-16">
-        <h2 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl uppercase drop-shadow-md">
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white uppercase drop-shadow-md">
           Todo lo que necesitas en un solo lugar
         </h2>
       </div>
 
-      <div class="flex flex-wrap justify-center gap-10">
+      <div class="flex flex-wrap justify-center gap-8">
 
-        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-sm px-8 py-10 rounded-2xl shadow-lg border border-zinc-800 transition-all duration-300 hover:scale-105 hover:border-orange-400 w-[280px]">
-          <img src="assets/img/gym.png" alt="Entrenamiento exclusivo" class="h-16 w-16 object-contain mb-5">
-          <h3 class="text-xl font-semibold text-white mb-4">Entrenamiento exclusivo</h3>
+        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-sm px-6 py-6 rounded-2xl shadow-lg border border-zinc-800 transition-all duration-300 hover:scale-105 hover:border-orange-400 w-[220px]">
+          <img src="assets/img/gym.png" alt="Entrenamiento exclusivo" class="h-12 w-12 object-contain mb-3">
+          <h3 class="text-lg font-semibold text-white mb-2">Entrenamiento exclusivo</h3>
         </div>
 
-        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-sm px-8 py-10 rounded-2xl shadow-lg border border-zinc-800 transition-all duration-300 hover:scale-105 hover:border-orange-400 w-[280px]">
-          <img src="assets/img/pesas.png" alt="Equipamiento de primera" class="h-16 w-16 object-contain mb-5">
-          <h3 class="text-xl font-semibold text-white mb-4">Equipamiento de primera</h3>
+        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-sm px-6 py-6 rounded-2xl shadow-lg border border-zinc-800 transition-all duration-300 hover:scale-105 hover:border-orange-400 w-[220px]">
+          <img src="assets/img/pesas.png" alt="Equipamiento de primera" class="h-12 w-12 object-contain mb-3">
+          <h3 class="text-lg font-semibold text-white mb-2">Equipamiento de primera</h3>
         </div>
 
-        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-sm px-8 py-10 rounded-2xl shadow-lg border border-zinc-800 transition-all duration-300 hover:scale-105 hover:border-orange-400 w-[280px]">
-          <img src="assets/img/apunte.png" alt="Asesoría nutricional" class="h-16 w-16 object-contain mb-5">
-          <h3 class="text-xl font-semibold text-white mb-4">Asesoría nutricional</h3>
+        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-sm px-6 py-6 rounded-2xl shadow-lg border border-zinc-800 transition-all duration-300 hover:scale-105 hover:border-orange-400 w-[220px]">
+          <img src="assets/img/apunte.png" alt="Asesoría nutricional" class="h-12 w-12 object-contain mb-3">
+          <h3 class="text-lg font-semibold text-white mb-2">Asesoría nutricional</h3>
         </div>
 
       </div>
@@ -157,69 +115,52 @@
     </div>
   </div>
 
-  <section class="bg-black text-white py-16 sm:py-24">
-    <div class="container mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl uppercase">
+  <section class="bg-black text-white py-20 sm:py-28">
+    <div class="container mx-auto max-w-6xl px-6 lg:px-8">
+      
+      <!-- Título -->
+      <div class="text-center mb-20">
+        <h2 class="text-4xl sm:text-4xl font-extrabold tracking-tight uppercase drop-shadow-md">
           Servicios Complementarios
         </h2>
+        <p class="mt-4 text-gray-400 text-lg max-w-2xl mx-auto">
+          Comodidades diseñadas para mejorar tu experiencia antes, durante y después de cada entrenamiento.
+        </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-8">
-
-        <div class="group">
-          <div class="flex justify-center mb-6">
-            <img class="h-40 w-40 rounded-full object-cover shadow-lg transition-transform duration-300 ease-in-out group-hover:scale-105" 
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAneFoUvewGOvdmGI7kfYEAkjr4tAmHMg0FQ&s"
-                alt="Estacionamiento">
-          </div>
-          
-          <div class="text-center mb-4">
-            <h3 class="text-xl font-semibold uppercase">
-              Estacionamiento
-            </h3>
-          </div>
-
-          <p class="text-base text-gray-300 text-center">
-            No pierdas tiempo buscando dónde aparcar. Ofrecemos un amplio estacionamiento exclusivo y seguro para nuestros miembros, para que tu única preocupación sea tu entrenamiento.
+      <!-- Grid de servicios -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-14">
+        
+        <!-- Card 1 -->
+        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-md rounded-2xl p-8 shadow-lg border border-zinc-800 transition-all duration-300 hover:-translate-y-2 hover:border-orange-500">
+          <img class="h-36 w-36 rounded-full object-cover shadow-md mb-6 transition-transform duration-300 group-hover:scale-105" 
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAneFoUvewGOvdmGI7kfYEAkjr4tAmHMg0FQ&s"
+              alt="Estacionamiento">
+          <h3 class="text-2xl font-semibold uppercase mb-3">Estacionamiento</h3>
+          <p class="text-white leading-relaxed">
+            Disfruta de un estacionamiento exclusivo y seguro. Llega sin estrés y enfócate únicamente en tu entrenamiento.
           </p>
         </div>
 
-        
-        <div class="group">
-          <div class="flex justify-center mb-6">
-            <img class="h-40 w-40 rounded-full object-cover shadow-lg transition-transform duration-300 ease-in-out group-hover:scale-105" 
-                src="https://www.kasnor.com/blog/wp-content/uploads/2017/07/Venta-suplementos-deportivos-en-gimnasio-2.jpg"
-                alt="Tienda de Suplementos">
-          </div>
-          
-          <div class="text-center mb-4">
-            <h3 class="text-xl font-semibold uppercase">
-              Tienda de Suplementos
-            </h3>
-          </div>
-
-          <p class="text-base text-gray-300 text-center">
-            Encuentra todo lo que necesitas para potenciar tus resultados. Desde proteínas hasta vitaminas, nuestra tienda tiene una selección premium de suplementos para apoyarte.
+        <!-- Card 2 -->
+        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-md rounded-2xl p-8 shadow-lg border border-zinc-800 transition-all duration-300 hover:-translate-y-2 hover:border-orange-500">
+          <img class="h-36 w-36 rounded-full object-cover shadow-md mb-6 transition-transform duration-300 group-hover:scale-105" 
+              src="https://www.kasnor.com/blog/wp-content/uploads/2017/07/Venta-suplementos-deportivos-en-gimnasio-2.jpg"
+              alt="Tienda de Suplementos">
+          <h3 class="text-2xl font-semibold uppercase mb-3">Tienda de Suplementos</h3>
+          <p class="text-white leading-relaxed">
+            Proteínas, vitaminas y más. Encuentra productos seleccionados para maximizar tu rendimiento y bienestar.
           </p>
         </div>
 
-        
-        <div class="group">
-          <div class="flex justify-center mb-6">
-            <img class="h-40 w-40 rounded-full object-cover shadow-lg transition-transform duration-300 ease-in-out group-hover:scale-105" 
-                src="https://ingenieriademenu.com/wp-content/uploads/2022/04/Como-decorar-una-cafeteria-pequena-con-poco-dinero.jpg"
-                alt="Cafetería">
-          </div>
-          
-          <div class="text-center mb-4">
-            <h3 class="text-xl font-semibold uppercase">
-              Cafetería
-            </h3>
-          </div>
-
-          <p class="text-base text-gray-300 text-center">
-            Tu alimentación es importante. Date el impulso que necesitas con una carta variada y nutritiva. La mejor manera de recargar antes y después de tu entrenamiento.
+        <!-- Card 3 -->
+        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-md rounded-2xl p-8 shadow-lg border border-zinc-800 transition-all duration-300 hover:-translate-y-2 hover:border-orange-500">
+          <img class="h-36 w-36 rounded-full object-cover shadow-md mb-6 transition-transform duration-300 group-hover:scale-105" 
+              src="https://ingenieriademenu.com/wp-content/uploads/2022/04/Como-decorar-una-cafeteria-pequena-con-poco-dinero.jpg"
+              alt="Cafetería">
+          <h3 class="text-2xl font-semibold uppercase mb-3">Cafetería</h3>
+          <p class="text-white leading-relaxed">
+            Sabores saludables y energía pura. Disfruta de una carta pensada para recargar antes o después de entrenar.
           </p>
         </div>
 
@@ -233,9 +174,6 @@
 
         <div>
           <a href="/" class="inline-flex items-center space-x-2">
-            <svg class="h-9 w-auto text-orange-600" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 22h20L12 2z"></path>
-            </svg>
             <span class="text-3xl font-extrabold tracking-tighter text-white">SMARTGYM</span>
           </a>
         </div>

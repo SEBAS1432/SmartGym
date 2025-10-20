@@ -1,22 +1,16 @@
 <div class="min-h-screen bg-black text-white font-sans">
   <!-- Navbar -->
   <header class="flex items-center justify-between px-8 py-4 bg-black fixed top-0 w-full z-50">
-    <!-- Logo con triángulo a la izquierda -->
-    <a href="/" class="inline-flex items-center space-x-2">
-      <!-- Triángulo -->
-      <svg class="h-9 w-auto text-orange-500" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L2 22h20L12 2zM12 6.83L17.17 18H6.83L12 6.83z"></path>
-      </svg>
-      <!-- Texto -->
-      <span class="text-3xl font-extrabold tracking-wider">SMARTGYM</span>
+    <a href="/" class="inline-flex items-center">
+      <img src="assets/img/logo.png" alt="SmartGym Logo" class="max-h-14 w-auto">
     </a>
 
     <!-- Links -->
-    <nav class="hidden md:flex space-x-8 text-white text-base font-bold uppercase tracking-wide">
-      <a routerLink="/inicio" class="hover:text-white">Inicio</a>
-      <a routerLink="/servicios" class="hover:text-white">Servicios</a>
-      <a routerLink="/membresia" class="hover:text-white">Planes</a>
-      <a routerLink="/contacto" class="hover:text-white">Contacto</a>
+    <nav class="hidden md:flex space-x-8 text-white text-base font-bold uppercase tracking-wide relative z-50">
+      <a routerLink="/inicio" class="hover:text-orange-400 cursor-pointer transition-colors">Inicio</a>
+      <a routerLink="/servicios" class="hover:text-orange-400 cursor-pointer transition-colors">Servicios</a>
+      <a routerLink="/membresia" class="hover:text-orange-400 cursor-pointer transition-colors">Planes</a>
+      <a routerLink="/contacto" class="hover:text-orange-400 cursor-pointer transition-colors">Contacto</a>
     </nav>
 
     <!-- Botón -->
