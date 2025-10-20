@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+// dashboard.component.ts
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../Core/services/auth.service';
+import { User } from '../../mock-data/users'; // <-- Importa 'User' desde su archivo original
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthenticatedUser } from '../../mock-data/users';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,16 +13,52 @@ import { AuthService } from '../../Core/services/auth.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
-  user: any;
+export class DashboardComponent implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router) {
-    this.user = this.auth.getCurrentUser();
+  user: AuthenticatedUser | null = null;
+
+  sections = [
+    { name: 'Rutinas personalizadas', icon: '🏃‍♀️', route: '/rutinas' },
+    { name: 'Clases disponibles', icon: '📚', route: '/clases' },
+    { name: 'Progreso de entrenamiento', icon: '📊', route: '/progreso' },
+    { name: 'Contacto', icon: '📞', route: '/contacto' }
+  ];
+
+  constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.user = this.authService.getCurrentUser();
+    if (!this.user) {
+      // Si no hay usuario, lo mandamos al login
+      this.router.navigate(['/login']);
+    }
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  navigateToSection(route: string): void {
+    this.router.navigate([route]);
+  }
+
+  getPlanDisplayName(plan: string): string {
+    const planNames: { [key: string]: string } = {
+      'premium': 'Premium',
+      'basic': 'Básico',
+      'pro': 'Pro'
+    };
+    return planNames[plan.toLowerCase()] || plan;
+  }
+
+  goHome(): void {
+    this.router.navigate(['/']);
   }
   
 
-  logout() {
-    this.auth.logout();
-    this.router.navigate(['/login']);
+  getCurrentDate(): string {
+    return new Date().toLocaleDateString();
   }
 }
+
