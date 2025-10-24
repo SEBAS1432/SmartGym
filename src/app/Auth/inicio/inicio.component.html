@@ -115,55 +115,72 @@
     </div>
   </div>
 
-  <section class="bg-black text-white py-20 sm:py-28">
-    <div class="container mx-auto max-w-6xl px-6 lg:px-8">
-      
-      <!-- Título -->
-      <div class="text-center mb-20">
-        <h2 class="text-4xl sm:text-4xl font-extrabold tracking-tight uppercase drop-shadow-md">
-          Servicios Complementarios
-        </h2>
-        <p class="mt-4 text-gray-400 text-lg max-w-2xl mx-auto">
-          Comodidades diseñadas para mejorar tu experiencia antes, durante y después de cada entrenamiento.
-        </p>
-      </div>
+  <section id="servicios" class="relative bg-black text-white overflow-hidden mt-12">
 
-      <!-- Grid de servicios -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-14">
-        
-        <!-- Card 1 -->
-        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-md rounded-2xl p-8 shadow-lg border border-zinc-800 transition-all duration-300 hover:-translate-y-2 hover:border-orange-500">
-          <img class="h-36 w-36 rounded-full object-cover shadow-md mb-6 transition-transform duration-300 group-hover:scale-105" 
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAneFoUvewGOvdmGI7kfYEAkjr4tAmHMg0FQ&s"
-              alt="Estacionamiento">
-          <h3 class="text-2xl font-semibold uppercase mb-3">Estacionamiento</h3>
-          <p class="text-white leading-relaxed">
-            Disfruta de un estacionamiento exclusivo y seguro. Llega sin estrés y enfócate únicamente en tu entrenamiento.
-          </p>
+    <div class="text-center px-6 max-w-7xl mx-auto mb-10">
+      <h2 class="text-4xl font-extrabold uppercase mb-3 tracking-wider">
+        Beneficios
+      </h2>
+      <p class="text-gray-300 text-lg mb-6">
+        Deseas saber más de nosotros, te invitamos a conocer algunos beneficios.
+      </p>
+    </div>
+
+    <div class="relative">
+      <!-- Imagen de fondo con degradado -->
+      <img src="assets/img/bene.png" alt="Fondo servicios"
+          class="w-full h-[500px] object-cover opacity-50">
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+
+      <!-- Contenido sobre la imagen -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center px-6 max-w-7xl mx-auto">
+
+          <!-- Servicio 1 -->
+          <div class="flex flex-col items-center text-white transition-transform duration-500 hover:scale-105">
+            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-600/10 border-2 border-orange-500/40 mb-4 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/60 transition-all duration-500">
+              <img src="assets/img/calendario.png" alt="Planificación" class="w-8 h-8 object-contain">
+            </div>
+            <h3 class="text-lg font-bold uppercase">Planificación Constante</h3>
+            <p class="text-gray-300 text-sm mt-2 max-w-[260px]">
+              Contamos con un entrenamiento constante en base a tus objetivos y tiempo durante tu jornada.
+            </p>
+          </div>
+
+          <!-- Servicio 2 -->
+          <div class="flex flex-col items-center text-white transition-transform duration-500 hover:scale-105">
+            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-600/10 border-2 border-orange-500/40 mb-4 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/60 transition-all duration-500">
+              <img src="assets/img/musculo.png" alt="Entrenamiento" class="w-8 h-8 object-contain">
+            </div>
+            <h3 class="text-lg font-bold uppercase">Entrenamiento + Resultados</h3>
+            <p class="text-gray-300 text-sm mt-2 max-w-[260px]">
+              Realizamos seguimiento a tus logros y te ayudamos a exigirte al siguiente nivel.
+            </p>
+          </div>
+
+          <!-- Servicio 3 -->
+          <div class="flex flex-col items-center text-white transition-transform duration-500 hover:scale-105">
+            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-600/10 border-2 border-orange-500/40 mb-4 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/60 transition-all duration-500">
+              <img src="assets/img/proteina-de-suero.png" alt="Nutrición" class="w-8 h-8 object-contain">
+            </div>
+            <h3 class="text-lg font-bold uppercase">Nutrición + Suplementos</h3>
+            <p class="text-gray-300 text-sm mt-2 max-w-[260px]">
+              Complementa tu salud con planes alimenticios, vitaminas y suplementos avalados por expertos.
+            </p>
+          </div>
+
+          <!-- Servicio 4 -->
+          <div class="flex flex-col items-center text-white transition-transform duration-500 hover:scale-105">
+            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-600/10 border-2 border-orange-500/40 mb-4 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/60 transition-all duration-500">
+              <img src="assets/img/silbato.png" alt="Disciplina y control" class="w-8 h-8 object-contain">
+            </div>
+            <h3 class="text-lg font-bold uppercase">Disciplina y Control</h3>
+            <p class="text-gray-300 text-sm mt-2 max-w-[260px]">
+              Te acompañamos para que llegues a tus metas con constancia, control y motivación.
+            </p>
+          </div>
+
         </div>
-
-        <!-- Card 2 -->
-        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-md rounded-2xl p-8 shadow-lg border border-zinc-800 transition-all duration-300 hover:-translate-y-2 hover:border-orange-500">
-          <img class="h-36 w-36 rounded-full object-cover shadow-md mb-6 transition-transform duration-300 group-hover:scale-105" 
-              src="https://www.kasnor.com/blog/wp-content/uploads/2017/07/Venta-suplementos-deportivos-en-gimnasio-2.jpg"
-              alt="Tienda de Suplementos">
-          <h3 class="text-2xl font-semibold uppercase mb-3">Tienda de Suplementos</h3>
-          <p class="text-white leading-relaxed">
-            Proteínas, vitaminas y más. Encuentra productos seleccionados para maximizar tu rendimiento y bienestar.
-          </p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="group flex flex-col items-center text-center bg-zinc-900/80 backdrop-blur-md rounded-2xl p-8 shadow-lg border border-zinc-800 transition-all duration-300 hover:-translate-y-2 hover:border-orange-500">
-          <img class="h-36 w-36 rounded-full object-cover shadow-md mb-6 transition-transform duration-300 group-hover:scale-105" 
-              src="https://ingenieriademenu.com/wp-content/uploads/2022/04/Como-decorar-una-cafeteria-pequena-con-poco-dinero.jpg"
-              alt="Cafetería">
-          <h3 class="text-2xl font-semibold uppercase mb-3">Cafetería</h3>
-          <p class="text-white leading-relaxed">
-            Sabores saludables y energía pura. Disfruta de una carta pensada para recargar antes o después de entrenar.
-          </p>
-        </div>
-
       </div>
     </div>
   </section>
