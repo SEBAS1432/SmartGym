@@ -24,6 +24,11 @@ export class DashboardComponent implements OnInit {
     { name: 'Contacto', icon: '📞', route: '/contacto' }
   ];
 
+  getSectionIcon(index: number): string {
+    const icons = ['🏃‍♀️', '📚', '📊'];
+    return icons[index] || '📋';
+  }
+
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
