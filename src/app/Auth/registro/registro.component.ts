@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-// 1. Cambia la importación para que apunte a AuthService
 import { AuthService } from '../../Core/services/auth.service'; 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; // Opcional, para redirigir
 
 @Component({
   selector: 'app-registro',
@@ -17,24 +17,39 @@ import { CommonModule } from '@angular/common';
 export class RegistroComponent {
   usuario = {
     name: '',
-    lastname: '', // <-- Agregado
+    lastname: '',
     email: '',
     password: ''
   };
 
-  // 2. Inyecta AuthService en el constructor
-  constructor(private authService: AuthService) { }
+  // Inyecta AuthService y Router (opcional)
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   onSubmit() {
-    // 3. Llama al método desde authService
-    this.authService.agregarUsuario(this.usuario);
+    // 1. Llama al método que ahora devuelve un booleano
+    const success = this.authService.agregarUsuario(this.usuario);
     
-    alert('¡Usuario registrado con éxito!');
-    this.usuario = {
-      name: '',
-      lastname: '',
-      email: '',
-      password: ''
-    };
+    // 2. Comprueba la respuesta
+    if (success) {
+      alert('¡Usuario registrado con éxito!');
+      
+      // Limpia el formulario
+      this.usuario = {
+        name: '',
+        lastname: '',
+        email: '',
+        password: ''
+      };
+      
+      // Opcional: Redirige al login
+      // this.router.navigate(['/login']);
+
+    } else {
+      // Si devuelve falso, es porque el email ya existía
+      alert('Error: El email ya se encuentra registrado.');
+    }
   }
 }
