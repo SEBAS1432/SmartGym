@@ -1,0 +1,53 @@
+<div class="gestion-container">
+    <div class="header-section">
+      <h1>Gestión de Clases</h1>
+      <button class="btn btn-primary" [routerLink]="['/trainer/clases/nuevo']">
+        + Crear Nueva Clase
+      </button>
+    </div>
+  
+    @if (isLoading) {
+      <div class="loading">Cargando clases...</div>
+    } @else {
+      <div class="tabla-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Instructor</th>
+              <th>Tipo</th>
+              <th>Fecha</th>
+              <th>Capacidad</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (clase of clases; track clase.id) {
+              <tr>
+                <td data-label="Título">{{ clase.titulo }}</td>
+                <td data-label="Instructor">{{ clase.instructorNombre || 'N/A' }}</td>
+                <td data-label="Tipo">{{ clase.tipo }}</td>
+                <td data-label="Fecha">{{ clase.fechaInicio | date:'medium' }}</td>
+                <td data-label="Capacidad">{{ clase.capacidad }}</td>
+                <td data-label="Estado">
+                  <span class="badge" [ngClass]="'estado-' + clase.estado.toLowerCase()">
+                    {{ clase.estado }}
+                  </span>
+                </td>
+                <td data-label="Acciones" class="acciones">
+                  <button class="btn btn-info" [routerLink]="['/trainer/clases', clase.id, 'asistentes']">Ver Asistentes</button>
+                  <button class="btn btn-warning" [routerLink]="['/trainer/clases/editar', clase.id]">Editar</button>
+                  <button class="btn btn-danger" (click)="eliminar(clase.id)">Eliminar</button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="7" class="no-data">No hay clases para mostrar.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>

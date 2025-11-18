@@ -1,0 +1,387 @@
+// Importamos los estilos base del formulario de clases
+@import '../formulario-clase/formulario-clase.component.scss';
+
+// ============================================
+// CARDS DE SECCIÓN
+// ============================================
+.card-style {
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(51, 51, 51, 0.95), rgba(40, 40, 40, 0.95));
+  border: 1px solid rgba(255, 193, 7, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  animation: fadeInUp 0.6s ease-out both;
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  // Efecto de brillo en hover
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 300ms;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 193, 7, 0.1), transparent 40%);
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+  
+  // Escalonamiento de animaciones
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+
+  h2 {
+    margin-top: 0;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, $primary-yellow 0%, $primary-orange 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border-bottom: 2px solid rgba(255, 193, 7, 0.2);
+    position: relative;
+    
+    // Línea decorativa
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 0.125rem;
+      border-radius: 9999px;
+      width: 60px;
+      background: linear-gradient(90deg, $primary-yellow, $primary-orange);
+      box-shadow: 0 2px 8px rgba(255, 193, 7, 0.5);
+    }
+  }
+}
+
+// ============================================
+// FILA DE EJERCICIOS
+// ============================================
+.ejercicio-row {
+  display: grid;
+  gap: 1rem;
+  align-items: flex-end;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  grid-template-columns: 3fr 1fr 1fr 1fr auto;
+  border-bottom: 1px solid rgba(255, 193, 7, 0.1);
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  animation: slideInRight 0.5s ease-out both;
+  
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  // Escalonamiento según índice
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.05}s;
+    }
+  }
+  
+  // Hover effect
+  &:hover {
+    background: rgba(255, 193, 7, 0.05);
+    border-color: rgba(255, 193, 7, 0.2);
+    transform: translateX(4px);
+    
+    .btn-danger-outline {
+      border-color: #f44336;
+      box-shadow: 0 0 10px rgba(244, 67, 54, 0.3);
+    }
+  }
+
+  &:last-child {
+    border-bottom-width: 0;
+    margin-bottom: 0;
+  }
+
+  .form-group-small {
+    @extend .form-group;
+    
+    label {
+      font-size: 0.75rem;
+      line-height: 1rem;
+    }
+    
+    input {
+      text-align: center;
+    }
+  }
+
+  // ============================================
+  // BOTÓN ELIMINAR EJERCICIO
+  // ============================================
+  .btn-danger-outline {
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 300ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 2px solid rgba(244, 67, 54, 0.5);
+    color: #f44336;
+    padding: 10px;
+    min-width: 44px;
+    height: 44px;
+    position: relative;
+    overflow: hidden;
+    
+    // Efecto de onda
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 9999px;
+      background: rgba(244, 67, 54, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+    
+    &:hover {
+      background: linear-gradient(135deg, #f44336, #d32f2f);
+      color: white;
+      border-color: #f44336;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+      
+      &::before {
+        width: 200px;
+        height: 200px;
+      }
+    }
+    
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+    
+    // Añadir icono visual
+    &::after {
+      content: '×';
+      font-size: 1.5rem;
+      line-height: 2rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+      line-height: 1;
+    }
+  }
+}
+
+// ============================================
+// BOTÓN AÑADIR EJERCICIO
+// ============================================
+.btn-secondary {
+  // Sobrescribir el estilo heredado para este contexto específico
+  width: 100%;
+  margin-top: 1rem;
+  font-weight: 700;
+  transition: all 300ms;
+  background: linear-gradient(135deg, rgba(68, 68, 68, 0.8), rgba(51, 51, 51, 0.8));
+  border: 2px solid rgba(255, 193, 7, 0.3);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 9999px;
+    background: rgba(255, 193, 7, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, rgba(85, 85, 85, 0.9), rgba(68, 68, 68, 0.9));
+    border-color: rgba(255, 193, 7, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(255, 193, 7, 0.3);
+    
+    &::before {
+      width: 400px;
+      height: 400px;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  // Icono de "más"
+  &::after {
+    content: ' +';
+    font-weight: 800;
+    font-size: 1.2em;
+  }
+}
+
+// ============================================
+// MENSAJE CUANDO NO HAY EJERCICIOS
+// ============================================
+.ejercicio-row:empty + .no-ejercicios {
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  color: #9ca3af;
+  font-style: italic;
+  
+  &::before {
+    content: '📝';
+    display: block;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+@media (max-width: 1024px) {
+  .ejercicio-row {
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-style {
+    padding: 1rem;
+    
+    h2 {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+  }
+  
+  .ejercicio-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    
+    .form-group,
+    .form-group-small {
+      label {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+      }
+      
+      input {
+        text-align: left;
+      }
+    }
+
+    .btn-danger-outline {
+      width: 100%;
+      margin-top: 0.5rem;
+      height: auto;
+      padding: 12px;
+      
+      &::after {
+        content: 'Eliminar Ejercicio ×';
+        font-size: 1rem;
+        line-height: 1.5rem;
+      }
+    }
+  }
+  
+  .btn-secondary {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-style {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    
+    h2 {
+      font-size: 1rem;
+      line-height: 1.5rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+  
+  .ejercicio-row {
+    padding: 0.5rem;
+    margin-bottom: 0.75rem;
+    
+    .form-group,
+    .form-group-small {
+      label {
+        font-size: 0.75rem;
+        line-height: 1rem;
+        margin-bottom: 0.25rem;
+      }
+      
+      input {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+      }
+    }
+  }
+}
+
+// ============================================
+// ANIMACIÓN DE CARGA PARA EJERCICIOS
+// ============================================
+@keyframes skeleton {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.ejercicio-row.loading {
+  animation: skeleton 1.5s ease-in-out infinite;
+}
+
+// ============================================
+// CONTADOR DE EJERCICIOS
+// ============================================
+.card-style:has([formArrayName="ejercicios"]) h2::before {
+  content: attr(data-count) ' ';
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  opacity: 0.6;
+}

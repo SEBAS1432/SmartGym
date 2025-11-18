@@ -1,0 +1,144 @@
+
+<!-- HTML Component Template -->
+<div class="form-container">
+  <!-- Elementos decorativos de fondo -->
+  <div class="background-overlay"></div>
+  
+  <div class="floating-elements">
+    <div class="float-icon icon-1">💪</div>
+    <div class="float-icon icon-2">🏋️</div>
+    <div class="float-icon icon-3">⚡</div>
+    <div class="float-icon icon-4">🔥</div>
+  </div>
+  
+  <div class="decorative-lines">
+    <div class="line line-1"></div>
+    <div class="line line-2"></div>
+  </div>
+
+  <div class="login-form">
+    <!-- Logo/Badge superior -->
+    <div class="logo-container">
+      <div class="logo-circle">
+        <span class="logo-icon">🏋️</span>
+      </div>
+      <div class="logo-glow"></div>
+    </div>
+
+    <h2>
+      <span class="title-main">Bienvenido</span>
+      <span class="title-accent">de Vuelta</span>
+    </h2>
+    <p class="subtitle">
+      <span class="subtitle-icon">✨</span>
+      Inicia sesión para continuar tu progreso
+    </p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <div *ngIf="errorMensaje" class="error-general">
+        <span class="error-icon">⚠️</span>
+        <span class="error-text">{{ errorMensaje }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="correo">
+          <span class="label-icon">📧</span>
+          Correo Electrónico
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="email" 
+            id="correo" 
+            formControlName="correo" 
+            class="form-control" 
+            placeholder="tu.correo@ejemplo.com"
+            [class.input-error]="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched"
+            [class.input-success]="loginForm.get('correo')?.valid && loginForm.get('correo')?.touched">
+          <span class="input-icon">&#64;</span>
+        </div>
+        <div *ngIf="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched" class="error-message">
+          <span class="error-bullet">●</span>
+          <small *ngIf="loginForm.get('correo')?.hasError('required')">El correo es requerido.</small>
+          <small *ngIf="loginForm.get('correo')?.hasError('email')">El formato del correo no es válido.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="contrasena">
+          <span class="label-icon">🔒</span>
+          Contraseña
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="contrasena" 
+            formControlName="contrasena" 
+            class="form-control" 
+            placeholder="Tu contraseña"
+            [class.input-error]="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched"
+            [class.input-success]="loginForm.get('contrasena')?.valid && loginForm.get('contrasena')?.touched">
+          <span class="input-icon">🔑</span>
+        </div>
+        
+        <div *ngIf="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched" class="error-message">
+          <span class="error-bullet">●</span>
+          <small *ngIf="loginForm.get('contrasena')?.hasError('required')">La contraseña es requerida.</small>
+        </div>
+      </div>
+
+      <!-- Link de recuperación -->
+      <div class="forgot-password">
+        <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="loginForm.invalid">
+        <span class="btn-content">
+          <span class="btn-text">Iniciar Sesión</span>
+          <span class="btn-arrow">→</span>
+        </span>
+        <div class="btn-glow"></div>
+      </button>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-text">O</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- Beneficios rápidos -->
+      <div class="benefits-quick">
+        <div class="benefit-item">
+          <span class="benefit-icon">📊</span>
+          <span class="benefit-text">Tracking</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">🎯</span>
+          <span class="benefit-text">Objetivos</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">📈</span>
+          <span class="benefit-text">Progreso</span>
+        </div>
+      </div>
+    </form>
+
+    <p class="register-link">
+      ¿No tienes una cuenta? 
+      <a routerLink="/registro">
+        <span class="link-text">Regístrate aquí</span>
+        <span class="link-arrow">→</span>
+      </a>
+    </p>
+
+    <!-- Footer decorativo -->
+    <div class="form-footer">
+      <div class="footer-stats">
+        <span class="stat">1000+ usuarios activos</span>
+        <span class="stat-dot">•</span>
+        <span class="stat">100% seguro</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,208 @@
+<div class="form-container">
+  <!-- Overlay con efectos -->
+  <div class="background-overlay"></div>
+  
+  <!-- Elementos flotantes -->
+  <div class="floating-elements">
+    <div class="float-icon icon-1">👤</div>
+    <div class="float-icon icon-2">✉️</div>
+    <div class="float-icon icon-3">🔒</div>
+    <div class="float-icon icon-4">📱</div>
+  </div>
+  
+  <!-- Líneas decorativas -->
+  <div class="decorative-lines">
+    <div class="line line-1"></div>
+    <div class="line line-2"></div>
+  </div>
+
+  <div class="register-form">
+    <!-- Logo container -->
+    <div class="logo-container">
+      <div class="logo-glow"></div>
+      <div class="logo-circle">
+        <span class="logo-icon">✨</span>
+      </div>
+    </div>
+
+    <h2>
+      <span class="title-main">Crear una</span>
+      <span class="title-accent">Cuenta Nueva</span>
+    </h2>
+
+    <p class="subtitle">
+      <span class="subtitle-icon">🚀</span>
+      Únete a nuestra comunidad
+    </p>
+
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <div class="form-group">
+        <label for="nombres">
+          <span class="label-icon">👤</span>
+          Nombres
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="nombres" 
+            formControlName="nombres" 
+            class="form-control" 
+            [class.input-error]="registroForm.get('nombres')?.invalid && registroForm.get('nombres')?.touched"
+            [class.input-success]="registroForm.get('nombres')?.valid && registroForm.get('nombres')?.touched"
+            placeholder="Escribe tus nombres">
+          <span class="input-icon">✏️</span>
+        </div>
+        <div *ngIf="registroForm.get('nombres')?.invalid && registroForm.get('nombres')?.touched" class="error-message">
+          <span class="error-bullet">●</span>
+          <small *ngIf="registroForm.get('nombres')?.hasError('required')">Los nombres son requeridos</small>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="apellidos">
+          <span class="label-icon">👥</span>
+          Apellidos
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="apellidos" 
+            formControlName="apellidos" 
+            class="form-control"
+            [class.input-error]="registroForm.get('apellidos')?.invalid && registroForm.get('apellidos')?.touched"
+            [class.input-success]="registroForm.get('apellidos')?.valid && registroForm.get('apellidos')?.touched"
+            placeholder="Escribe tus apellidos">
+          <span class="input-icon">✏️</span>
+        </div>
+        <div *ngIf="registroForm.get('apellidos')?.invalid && registroForm.get('apellidos')?.touched" class="error-message">
+          <span class="error-bullet">●</span>
+          <small *ngIf="registroForm.get('apellidos')?.hasError('required')">Los apellidos son requeridos</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="correo">
+          <span class="label-icon">✉️</span>
+          Correo Electrónico
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="email" 
+            id="correo" 
+            formControlName="correo" 
+            class="form-control"
+            [class.input-error]="registroForm.get('correo')?.invalid && registroForm.get('correo')?.touched"
+            [class.input-success]="registroForm.get('correo')?.valid && registroForm.get('correo')?.touched"
+            placeholder="tu.correo@ejemplo.com">
+          <span class="input-icon">📧</span>
+        </div>
+        <div *ngIf="registroForm.get('correo')?.invalid && registroForm.get('correo')?.touched" class="error-message">
+          <span class="error-bullet">●</span>
+          <small *ngIf="registroForm.get('correo')?.hasError('required')">El correo es requerido</small>
+          <small *ngIf="registroForm.get('correo')?.hasError('email')">El formato del correo no es válido</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">
+          <span class="label-icon">📱</span>
+          Número de Teléfono
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="tel" 
+            id="telefono" 
+            formControlName="telefono" 
+            class="form-control"
+            [class.input-error]="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched"
+            [class.input-success]="registroForm.get('telefono')?.valid && registroForm.get('telefono')?.touched"
+            placeholder="+51 999 999 999">
+          <span class="input-icon">📞</span>
+        </div>
+        <div *ngIf="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched" class="error-message">
+          <span class="error-bullet">●</span>
+          <small *ngIf="registroForm.get('telefono')?.hasError('required')">El teléfono es requerido</small>
+          <small *ngIf="registroForm.get('telefono')?.hasError('pattern')">El formato del teléfono no es válido</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="contrasena">
+          <span class="label-icon">🔒</span>
+          Contraseña
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="contrasena" 
+            formControlName="contrasena" 
+            class="form-control"
+            [class.input-error]="registroForm.get('contrasena')?.invalid && registroForm.get('contrasena')?.touched"
+            [class.input-success]="registroForm.get('contrasena')?.valid && registroForm.get('contrasena')?.touched"
+            placeholder="Mínimo 6 caracteres">
+          <span class="input-icon">🔐</span>
+        </div>
+        <div *ngIf="registroForm.get('contrasena')?.invalid && registroForm.get('contrasena')?.touched" class="error-message">
+          <span class="error-bullet">●</span>
+          <small *ngIf="registroForm.get('contrasena')?.hasError('required')">La contraseña es requerida</small>
+          <small *ngIf="registroForm.get('contrasena')?.hasError('minlength')">La contraseña debe tener al menos 6 caracteres</small>
+        </div>
+      </div>
+
+      <!-- Beneficios rápidos -->
+      <div class="benefits-quick">
+        <div class="benefit-item">
+          <span class="benefit-icon">⚡</span>
+          <span class="benefit-text">RÁPIDO</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">🔒</span>
+          <span class="benefit-text">SEGURO</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">✨</span>
+          <span class="benefit-text">GRATIS</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="registroForm.invalid">
+        <span class="btn-glow"></span>
+        <span class="btn-content">
+          <span>Crear Cuenta</span>
+          <span class="btn-arrow">→</span>
+        </span>
+      </button>
+
+    </form>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-text">o</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <p class="login-link">
+      ¿Ya tienes una cuenta? 
+      <a routerLink="/login">
+        Inicia Sesión
+        <span class="link-arrow">→</span>
+      </a>
+    </p>
+
+    <div class="form-footer">
+      <div class="footer-stats">
+        <span class="stat">
+          <span>🛡️</span>
+          <span>100% Seguro</span>
+        </span>
+        <span class="stat-dot">•</span>
+        <span class="stat">
+          <span>⚡</span>
+          <span>Registro Instantáneo</span>
+        </span>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,139 @@
+<div class="reservas-container">
+  <!-- Background overlay -->
+  <div class="background-overlay"></div>
+  
+  <!-- Elementos flotantes -->
+  <div class="floating-elements">
+    <div class="float-icon icon-1">✅</div>
+    <div class="float-icon icon-2">📅</div>
+    <div class="float-icon icon-3">🎫</div>
+    <div class="float-icon icon-4">⏰</div>
+  </div>
+  
+  <!-- Líneas decorativas -->
+  <div class="decorative-lines">
+    <div class="line line-1"></div>
+    <div class="line line-2"></div>
+  </div>
+
+  <div class="content-wrapper">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-badge">
+        <span class="badge-icon">✅</span>
+        <span class="badge-text">Reservas</span>
+      </div>
+      <h1 class="page-title">
+        <span class="title-main">Mis</span>
+        <span class="title-accent">Reservas</span>
+      </h1>
+      <p class="page-subtitle">
+        <span class="subtitle-icon">✨</span>
+        Administra tus clases reservadas y próximas sesiones
+      </p>
+    </div>
+
+    @if (isLoading) {
+      <div class="loading-state-full">
+        <div class="spinner-large"></div>
+        <p>Cargando tus reservas...</p>
+      </div>
+    }
+
+    <!-- Grid de Reservas -->
+    <div class="reservas-grid">
+      @for (reserva of misReservas; track reserva.id) {
+        <div class="reserva-card estado-{{ reserva.estado.toLowerCase() }}">
+          <div class="card-status-bar"></div>
+          
+          <div class="card-icon-wrapper">
+            <div class="card-icon-circle bg-gradient-to-br from-green-500 to-emerald-500">
+              <span class="card-icon">🎫</span>
+            </div>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="card-header">
+            <h3 class="reserva-titulo">{{ reserva.clase?.titulo || 'Clase no disponible' }}</h3>
+            <span class="estado-badge estado-{{ reserva.estado.toLowerCase() }}">
+              @if (reserva.estado === 'RESERVADA') {
+                <span class="badge-icon">✅</span>
+              } @else if (reserva.estado === 'CANCELADA') {
+                <span class="badge-icon">❌</span>
+              } @else {
+                <span class="badge-icon">⏰</span>
+              }
+              {{ reserva.estado }}
+            </span>
+          </div>
+
+          <div class="card-body">
+            <div class="info-list">
+              <div class="info-item">
+                <span class="info-icon">👤</span>
+                <div class="info-content">
+                  <span class="info-label">Instructor</span>
+                  <span class="info-value">{{ reserva.clase?.instructorNombre || 'N/A' }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon">📅</span>
+                <div class="info-content">
+                  <span class="info-label">Fecha de Clase</span>
+                  <span class="info-value">{{ reserva.clase?.fechaInicio | date:'fullDate' }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon">⏰</span>
+                <div class="info-content">
+                  <span class="info-label">Hora</span>
+                  <span class="info-value">{{ reserva.clase?.fechaInicio | date:'shortTime' }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon">🎫</span>
+                <div class="info-content">
+                  <span class="info-label">Reservado el</span>
+                  <span class="info-value">{{ reserva.fechaReserva | date:'short' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            @if (reserva.estado === 'RESERVADA') {
+              <button class="btn-cancelar" (click)="cancelar(reserva.id)">
+                <span class="btn-content">
+                  <span class="btn-icon">❌</span>
+                  <span class="btn-text">Cancelar Reserva</span>
+                </span>
+              </button>
+            } @else {
+              <div class="estado-info">
+                <span class="info-icon">ℹ️</span>
+                <p>Esta reserva ya no está activa</p>
+              </div>
+            }
+          </div>
+
+          <div class="card-shine"></div>
+        </div>
+      } @empty {
+        @if (!isLoading) {
+          <div class="empty-state">
+            <span class="empty-icon">📭</span>
+            <h3>Sin reservas</h3>
+            <p>Aún no tienes ninguna reserva. ¡Anímate a inscribirte a una clase!</p>
+            <a routerLink="/clases" class="btn-ver-clases">
+              <span class="btn-text">Ver Clases Disponibles</span>
+              <span class="btn-arrow">→</span>
+            </a>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>

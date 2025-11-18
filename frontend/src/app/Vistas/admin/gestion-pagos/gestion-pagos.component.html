@@ -1,0 +1,126 @@
+<div class="gestion-container">
+    <h1>Gestión de Pagos y Membresías</h1>
+  
+    @if (isLoading) {
+      <div class="loading">Cargando clientes...</div>
+    }
+  
+    <div class="gestion-grid">
+  
+      <div class="form-container card-style">
+        <h2 class="form-title">Asignar Nueva Membresía</h2>
+        <form [formGroup]="membresiaForm" (ngSubmit)="onAsignarMembresia()">
+  
+          <div class="form-group">
+            <label for="m-usuarioId">Asignar a Cliente</label>
+            <select id="m-usuarioId" formControlName="usuarioId" class="form-control">
+              <option [ngValue]="null" disabled>Seleccione un cliente...</option>
+              @for (cliente of clientes; track cliente.id) {
+                <option [ngValue]="cliente.id">{{ cliente.nombres }} {{ cliente.apellidos }}</option>
+              }
+            </select>
+            @if (membresiaForm.get('usuarioId')?.invalid && membresiaForm.get('usuarioId')?.touched) {
+              <small class="error-msg">Debe seleccionar un cliente.</small>
+            }
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label for="m-tipo">Tipo de Membresía</label>
+              <input id="m-tipo" type="text" formControlName="tipo" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="m-precio">Precio (S/.)</label>
+              <input id="m-precio" type="number" formControlName="precio" class="form-control">
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label for="m-fechaInicio">Fecha Inicio</label>
+              <input id="m-fechaInicio" type="date" formControlName="fechaInicio" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="m-fechaFin">Fecha Fin</label>
+              <input id="m-fechaFin" type="date" formControlName="fechaFin" class="form-control">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="m-estado">Estado</label>
+            <select id="m-estado" formControlName="estado" class="form-control">
+              <option value="ACTIVA">Activa</option>
+              <option value="PAUSADA">Pausada</option>
+              <option value="EXPIRADA">Expirada</option>
+            </select>
+          </div>
+  
+          <button type="submit" class="btn btn-primary" [disabled]="membresiaForm.invalid || isLoading">
+            Asignar Membresía
+          </button>
+        </form>
+      </div>
+  
+      <div class="form-container card-style">
+        <h2 class="form-title">Registrar Nuevo Pago</h2>
+        <form [formGroup]="pagoForm" (ngSubmit)="onRegistrarPago()">
+  
+          <div class="form-group">
+            <label for="p-usuarioId">Pago de Cliente</label>
+            <select id="p-usuarioId" formControlName="usuarioId" class="form-control">
+              <option [ngValue]="null" disabled>Seleccione un cliente...</option>
+              @for (cliente of clientes; track cliente.id) {
+                <option [ngValue]="cliente.id">{{ cliente.nombres }} {{ cliente.apellidos }}</option>
+              }
+            </select>
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label for="p-monto">Monto (S/.)</label>
+              <input id="p-monto" type="number" formControlName="monto" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="p-membresiaId">ID Membresía (Opcional)</label>
+              <input id="p-membresiaId" type="number" formControlName="membresiaId" class="form-control">
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="p-metodoPagoId">Método de Pago</label>
+            <select id="p-metodoPagoId" formControlName="metodoPagoId" class="form-control">
+              <option [ngValue]="null" disabled>Seleccione un método...</option>
+              @for (metodo of metodosPago; track metodo.id) {
+                <option [ngValue]="metodo.id">{{ metodo.nombre }}</option>
+              }
+            </select>
+          </div>
+  
+          <div class="form-group">
+            <label for="p-referencia">Referencia (Voucher, Nro. Yape)</label>
+            <input id="p-referencia" type="text" formControlName="referencia" class="form-control">
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label for="p-fechaPago">Fecha y Hora del Pago</label>
+              <input id="p-fechaPago" type="datetime-local" formControlName="fechaPago" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="p-status">Estado del Pago</label>
+              <select id="p-status" formControlName="status" class="form-control">
+                <option value="COMPLETADO">Completado</option>
+                <option value="PENDIENTE">Pendiente</option>
+                <option value="FALLIDO">Fallido</option>
+              </select>
+            </div>
+          </div>
+  
+          <button type="submit" class="btn btn-primary" [disabled]="pagoForm.invalid || isLoading">
+            Registrar Pago
+          </button>
+        </form>
+      </div>
+  
+    </div>
+  </div>

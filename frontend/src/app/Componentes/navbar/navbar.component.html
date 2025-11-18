@@ -1,0 +1,45 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Brand/Logo -->
+    <a class="navbar-brand" routerLink="/dashboard">
+      Smart<span class="brand-highlight">Gym</span>
+    </a>
+    
+    <!-- Links de navegación -->
+    <div class="navbar-links">
+      <a routerLink="/dashboard" 
+         routerLinkActive="active-link" 
+         [routerLinkActiveOptions]="{exact: true}">
+        Dashboard
+      </a>
+      <a routerLink="/clases" 
+         routerLinkActive="active-link">
+        Clases
+      </a>
+      <a routerLink="/mis-rutinas" 
+         routerLinkActive="active-link">
+        Mis Rutinas
+      </a>
+      <a routerLink="/mi-progreso" 
+         routerLinkActive="active-link">
+        Mi Progreso
+      </a>
+    </div>
+    
+    <!-- Sección de usuario -->
+    <div class="navbar-user">
+      @if (nombreUsuario) {
+        <span class="user-greeting">{{ nombreUsuario }}</span>
+      }
+      
+      <div class="user-actions">
+        <a routerLink="/mi-perfil" class="profile-link">
+          <span>Mi Perfil</span>
+        </a>
+        <button (click)="cerrarSesion()" class="btn-logout">
+          <span>Salir</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

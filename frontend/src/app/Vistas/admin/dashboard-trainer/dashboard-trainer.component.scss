@@ -1,0 +1,363 @@
+@import '../../../../variables';
+
+// ============================================
+// CONTENEDOR PRINCIPAL
+// ============================================
+.dashboard-trainer-container {
+  color: white;
+  position: relative;
+  animation: fadeIn 0.6s ease-out;
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -3rem;
+    right: -3rem;
+    width: 18rem;
+    height: 18rem;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -6rem;
+    left: -6rem;
+    width: 25rem;
+    height: 25rem;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 152, 0, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite reverse;
+    z-index: 0;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -30px) scale(1.1); }
+  }
+
+  > * {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+// ============================================
+// ENCABEZADO
+// ============================================
+.welcome-title {
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, $primary-yellow 0%, $primary-orange 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  text-shadow: 0 4px 20px rgba(255, 193, 7, 0.3);
+  animation: slideInLeft 0.8s ease-out;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 4px;
+    border-radius: 6px;
+    width: 80px;
+    background: linear-gradient(90deg, $primary-yellow, $primary-orange, transparent);
+    animation: expandWidth 0.8s ease-out 0.3s both;
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes expandWidth {
+    from { width: 0; }
+    to { width: 80px; }
+  }
+}
+
+.welcome-subtitle {
+  font-size: 1.25rem;
+  color: #d1d5db;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+  animation: slideInLeft 0.8s ease-out 0.2s both;
+}
+
+// ============================================
+// ESTADOS DE CARGA
+// ============================================
+.loading,
+.no-data {
+  text-align: center;
+  padding: 4rem 2.5rem;
+  font-size: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  color: #999;
+  background: rgba(255, 193, 7, 0.05);
+  border: 2px dashed rgba(255, 193, 7, 0.2);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    left: -100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 193, 7, 0.1), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+}
+
+.loading {
+  color: $primary-yellow;
+  font-weight: 500;
+
+  &::after {
+    content: '...';
+    animation: dots 1.5s steps(4, end) infinite;
+  }
+
+  @keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+  }
+}
+
+.no-data {
+  color: #ef4444;
+  border-color: rgba(231, 76, 60, 0.3);
+  background: rgba(231, 76, 60, 0.05);
+}
+
+// ============================================
+// GRID
+// ============================================
+.stats-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+// ============================================
+// TARJETAS
+// ============================================
+.stat-card {
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(42, 42, 42, 0.9), rgba(30, 30, 30, 0.9));
+  border: 1px solid rgba(255, 193, 7, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 193, 7, 0.3);
+
+    .stat-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .stat-value {
+      transform: scale(1.05);
+    }
+  }
+
+  // ICONO
+  .stat-icon {
+    font-size: 3.75rem;
+    padding: 1.25rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: inherit;
+      background: inherit;
+      opacity: 0.3;
+      filter: blur(10px);
+      z-index: -1;
+    }
+  }
+
+  .stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+    position: relative;
+  }
+
+  .stat-value {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1px;
+    transition: transform 0.3s ease;
+    text-shadow: 0 2px 10px currentColor;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #d1d5db;
+    letter-spacing: 1.5px;
+  }
+
+  // TIPOS
+  &.clientes {
+    border-left: 4px solid #2196f3;
+
+    .stat-icon {
+      background: rgba(33, 150, 243, 0.15);
+      color: #2196f3;
+    }
+
+    .stat-value {
+      color: #2196f3;
+    }
+  }
+
+  &.clases {
+    border-left: 4px solid $primary-yellow;
+
+    .stat-icon {
+      background: rgba(255, 193, 7, 0.12);
+      color: $primary-yellow;
+    }
+
+    .stat-value {
+      background: linear-gradient(135deg, $primary-yellow, $primary-orange);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  &.reservas {
+    border-left: 4px solid #4caf50;
+
+    .stat-icon {
+      background: rgba(76, 175, 80, 0.15);
+      color: #4caf50;
+    }
+
+    .stat-value {
+      color: #4caf50;
+    }
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .stat-card {
+    padding: 1.5rem;
+
+    .stat-icon {
+      font-size: 2.75rem;
+      padding: 1rem;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 1.875rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .stat-card {
+    padding: 1.25rem;
+
+    .stat-icon {
+      font-size: 2.5rem;
+      padding: 1rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+    }
+
+    .stat-label {
+      font-size: 0.625rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-title {
+    font-size: 1.5rem;
+  }
+
+  .stat-card .stat-icon {
+    font-size: 1.875rem;
+    padding: 0.75rem;
+  }
+
+  .stat-card .stat-value {
+    font-size: 1.75rem;
+  }
+}

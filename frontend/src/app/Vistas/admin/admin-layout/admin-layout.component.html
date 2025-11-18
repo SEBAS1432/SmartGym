@@ -1,0 +1,66 @@
+<div class="admin-layout-container">
+  
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a routerLink="/" class="logo-link">
+        <div class="logo-circle">
+          <span class="logo-icon">🏋️</span>
+        </div>
+        <div class="logo-text">
+          Smart<span class="logo-accent">Gym</span>
+        </div>
+      </a>
+      @if (usuarioRol) {
+        <span class="role-badge">{{ usuarioRol }}</span>
+      }
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="nav-section-title">Panel de Control</span>
+      <a routerLink="/trainer/dashboard" routerLinkActive="active">
+        <span class="nav-icon">📈</span>
+        <span>Dashboard</span>
+      </a>
+      
+      <span class="nav-section-title">Gestión</span>
+      <a routerLink="/trainer/clases" routerLinkActive="active">
+        <span class="nav-icon">📚</span>
+        <span>Gestionar Clases</span>
+      </a>
+      <a routerLink="/trainer/alumnos" routerLinkActive="active">
+        <span class="nav-icon">👥</span>
+        <span>Gestionar Alumnos</span>
+      </a>
+      
+      <span class="nav-section-title">Reportes</span>
+      <a routerLink="/admin/reportes" routerLinkActive="active" *ngIf="usuarioRol === 'ADMIN'">
+        <span class="nav-icon">📊</span>
+        <span>Reporte Semanal</span>
+      </a>
+      
+      <span class="nav-section-title">Administración</span>
+       <a routerLink="/admin/usuarios" routerLinkActive="active" *ngIf="usuarioRol === 'ADMIN'">
+        <span class="nav-icon">🧑‍💻</span>
+        <span>Gestión de Usuarios</span>
+      </a>
+      <a routerLink="/admin/pagos" routerLinkActive="active" *ngIf="usuarioRol === 'ADMIN'">
+        <span class="nav-icon">💳</span>
+        <span>Registrar Pagos</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a (click)="autenticacionService.logout()" class="nav-link-secondary logout-button">
+        <span class="nav-icon">🚪</span>
+        <span>Cerrar Sesión</span>
+      </a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="content-background"></div>
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

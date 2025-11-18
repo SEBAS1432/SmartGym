@@ -1,0 +1,130 @@
+<div class="logros-container">
+  <!-- Background overlay -->
+  <div class="background-overlay"></div>
+  
+  <!-- Elementos flotantes -->
+  <div class="floating-elements">
+    <div class="float-icon icon-1">🏆</div>
+    <div class="float-icon icon-2">⭐</div>
+    <div class="float-icon icon-3">🎯</div>
+    <div class="float-icon icon-4">💪</div>
+  </div>
+  
+  <!-- Líneas decorativas -->
+  <div class="decorative-lines">
+    <div class="line line-1"></div>
+    <div class="line line-2"></div>
+  </div>
+
+  <div class="content-wrapper">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-badge">
+        <span class="badge-icon">🏆</span>
+        <span class="badge-text">Gamificación</span>
+      </div>
+      <h1 class="page-title">
+        <span class="title-main">Mis Puntos</span>
+        <span class="title-accent">y Logros</span>
+      </h1>
+      <p class="page-subtitle">
+        <span class="subtitle-icon">✨</span>
+        Sigue entrenando y desbloquea increíbles recompensas
+      </p>
+    </div>
+
+    <!-- Sección de Puntos -->
+    <section class="puntos-section card-style">
+      <div class="section-header">
+        <div class="section-icon-wrapper">
+          <div class="section-icon-circle bg-gradient-to-br from-yellow-400 to-orange-500">
+            <span class="section-icon">💰</span>
+          </div>
+          <div class="section-glow"></div>
+        </div>
+        <h2 class="section-title">Total de Puntos Acumulados</h2>
+      </div>
+
+      @if (isLoadingPuntos) {
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Calculando puntos... ✨</p>
+        </div>
+      } @else {
+        <div class="puntos-display">
+          <div class="puntos-valor-grande">
+            {{ totalPuntos }}
+            <span class="puntos-label">pts</span>
+          </div>
+          <div class="puntos-nivel">
+            <span class="nivel-badge">
+              <span class="nivel-icon">⭐</span>
+              Nivel Champion
+            </span>
+          </div>
+          <p class="puntos-info">
+            <span class="info-icon">🎁</span>
+            ¡Sigue entrenando para ganar más puntos y desbloquear recompensas!
+          </p>
+        </div>
+      }
+    </section>
+
+    <!-- Sección de Logros -->
+    <section class="logros-section card-style">
+      <div class="section-header">
+        <div class="section-icon-wrapper">
+          <div class="section-icon-circle bg-gradient-to-br from-purple-500 to-pink-500">
+            <span class="section-icon">🏅</span>
+          </div>
+          <div class="section-glow"></div>
+        </div>
+        <h2 class="section-title">Logros Desbloqueados</h2>
+      </div>
+
+      @if (isLoadingLogros) {
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Cargando logros... 🏅</p>
+        </div>
+      } @else if (misLogros.length > 0) {
+        <div class="logros-grid">
+          @for (logro of misLogros; track logro.nombre) {
+            <div class="logro-card">
+              <div class="logro-icon-wrapper">
+                <div class="logro-icon-circle bg-gradient-to-br from-yellow-400 to-orange-500">
+                  <span class="logro-icon">🏆</span>
+                </div>
+                <div class="logro-glow"></div>
+              </div>
+
+              <div class="logro-content">
+                <h3 class="logro-nombre">{{ logro.nombre }}</h3>
+                <p class="logro-descripcion">{{ logro.descripcion }}</p>
+                
+                <div class="logro-footer">
+                  <span class="logro-puntos">
+                    <span class="puntos-icon">💎</span>
+                    +{{ logro.puntos }} Puntos
+                  </span>
+                  <span class="logro-fecha">
+                    <span class="fecha-icon">📅</span>
+                    {{ logro.fechaObtenido | date:'shortDate' }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="logro-shine"></div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <span class="empty-icon">🎯</span>
+          <h3>Sin logros aún</h3>
+          <p>Aún no has desbloqueado ningún logro. ¡Sigue esforzándote!</p>
+        </div>
+      }
+    </section>
+  </div>
+</div>

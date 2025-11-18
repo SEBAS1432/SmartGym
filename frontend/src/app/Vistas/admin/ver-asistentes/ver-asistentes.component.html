@@ -1,0 +1,55 @@
+<div class="asistentes-container">
+    @if (isLoading) {
+      <div class="loading">Cargando información...</div>
+    } @else if (claseInfo) {
+  
+      <a [routerLink]="['/trainer/clases']" class="btn btn-secondary mb-3">
+        &larr; Volver a Gestión de Clases
+      </a>
+  
+      <div class="clase-info-header">
+        <h1>Asistentes de la Clase</h1>
+        <h2>{{ claseInfo.titulo }}</h2>
+        <div class="info-meta">
+          <span><strong>Instructor:</strong> {{ claseInfo.instructorNombre }}</span>
+          <span><strong>Fecha:</strong> {{ claseInfo.fechaInicio | date:'medium' }}</span>
+          <span><strong>Capacidad:</strong> {{ claseInfo.capacidad }}</span>
+          <span><strong>Reservas:</strong> {{ asistentes.length }}</span>
+        </div>
+      </div>
+  
+      <div class="tabla-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente (Usuario)</th>
+              <th>Correo</th>
+              <th>Fecha de Reserva</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (reserva of asistentes; track reserva.id) {
+              <tr>
+                <td data-label="Cliente">{{ reserva.usuario?.nombres }} {{ reserva.usuario?.apellidos }}</td>
+                <td data-label="Correo">{{ reserva.usuario?.correo }}</td>
+                <td data-label="Fecha Reserva">{{ reserva.fechaReserva | date:'short' }}</td>
+                <td data-label="Estado">
+                  <span class="badge" [ngClass]="'estado-' + reserva.estado.toLowerCase()">
+                    {{ reserva.estado }}
+                  </span>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="4" class="no-data">No hay asistentes registrados para esta clase.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+  
+    } @else {
+      <p class="no-data">No se pudo cargar la información de la clase.</p>
+    }
+  </div>

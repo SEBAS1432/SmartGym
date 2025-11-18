@@ -1,0 +1,423 @@
+// Variables
+$primary-yellow: #ffc107;
+$primary-orange: #ff9800;
+$dark-bg: #000000;
+$dark-card: rgba(0, 0, 0, 0.85);
+
+// Navbar principal
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 193, 7, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  animation: slideDown 0.6s ease-out;
+  
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  // Efecto de brillo superior
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 193, 7, 0.3) 30%, 
+      rgba(255, 193, 7, 0.6) 50%, 
+      rgba(255, 193, 7, 0.3) 70%, 
+      transparent
+    );
+    animation: shimmer 3s linear infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  position: relative;
+}
+
+// Brand/Logo
+.navbar-brand {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  padding: 0.5rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  
+  &::before {
+    content: '💪';
+    font-size: 1.5rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  
+  .brand-highlight {
+    background: linear-gradient(135deg, $primary-yellow 0%, $primary-orange 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, $primary-yellow, $primary-orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+  }
+  
+  &:hover {
+    transform: scale(1.05);
+    
+    .brand-highlight::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+// Links de navegación
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  justify-content: center;
+  
+  a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    letter-spacing: 0.3px;
+    
+    // Efecto de fondo al hover
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+      border-radius: inherit;
+    }
+    
+    // Línea inferior animada
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, $primary-yellow, $primary-orange);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+    
+    &:hover {
+      color: white;
+      transform: translateY(-2px);
+      
+      &::before {
+        opacity: 1;
+      }
+      
+      &::after {
+        width: 80%;
+      }
+    }
+    
+    // Link activo
+    &.active-link {
+      color: white;
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.15), rgba(255, 152, 0, 0.15));
+      border: 1px solid rgba(255, 193, 7, 0.3);
+      box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+      
+      &::after {
+        width: 80%;
+      }
+      
+      // Brillo pulsante en link activo
+      animation: activePulse 2s ease-in-out infinite;
+      
+      @keyframes activePulse {
+        0%, 100% { box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2); }
+        50% { box-shadow: 0 4px 20px rgba(255, 193, 7, 0.35); }
+      }
+    }
+  }
+}
+
+// Sección de usuario
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-greeting {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 193, 7, 0.08);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 193, 7, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeIn 0.6s ease-out 0.3s both;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  &::before {
+    content: '👤';
+    font-size: 1.1rem;
+  }
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  animation: fadeIn 0.6s ease-out 0.4s both;
+}
+
+.profile-link {
+  color: $primary-yellow;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.625rem 1.125rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  background: rgba(255, 193, 7, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 193, 7, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+  }
+  
+  &:hover {
+    background: rgba(255, 193, 7, 0.15);
+    border-color: rgba(255, 193, 7, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+    
+    &::before {
+      width: 200px;
+      height: 200px;
+    }
+  }
+}
+
+.btn-logout {
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  color: white;
+  border: none;
+  padding: 0.625rem 1.125rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  
+  &::before {
+    content: '🚪';
+    margin-right: 0.5rem;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(220, 38, 38, 0.4);
+    
+    &::after {
+      width: 200px;
+      height: 200px;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Espaciador para el contenido debajo del navbar
+body {
+  padding-top: 70px;
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .navbar-container {
+    padding: 0.75rem 1rem;
+  }
+  
+  .navbar-links {
+    gap: 0.25rem;
+    
+    a {
+      padding: 0.5rem 0.875rem;
+      font-size: 0.875rem;
+    }
+  }
+  
+  .user-greeting {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+  
+  .navbar-links {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 193, 7, 0.1);
+    gap: 0.25rem;
+    
+    a {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
+    }
+  }
+  
+  .navbar-user {
+    order: 2;
+    margin-left: auto;
+  }
+  
+  .user-actions {
+    gap: 0.5rem;
+  }
+  
+  .profile-link, .btn-logout {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 1.25rem;
+    
+    &::before {
+      font-size: 1.25rem;
+    }
+  }
+  
+  .navbar-links {
+    gap: 0.125rem;
+    
+    a {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  .profile-link {
+    span {
+      display: none;
+    }
+    
+    &::after {
+      content: '👤';
+    }
+  }
+  
+  .btn-logout {
+    &::before {
+      margin-right: 0;
+    }
+    
+    span {
+      display: none;
+    }
+  }
+}

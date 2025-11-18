@@ -1,0 +1,44 @@
+<div class="gestion-container">
+    <h1>Lista de Alumnos (Clientes)</h1>
+  
+    @if (isLoading) {
+      <div class="loading">Cargando alumnos...</div>
+    } @else {
+      <div class="tabla-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (alumno of alumnos; track alumno.id) {
+              <tr>
+                <td data-label="Nombre">{{ alumno.nombres }} {{ alumno.apellidos }}</td>
+                <td data-label="Correo">{{ alumno.correo }}</td>
+                <td data-label="Teléfono">{{ alumno.telefono || '-' }}</td>
+                <td data-label="Estado">
+                    <span class="badge" [ngClass]="'estado-' + alumno.estado.toLowerCase()">
+                        {{ alumno.estado }}
+                      </span>
+                </td>
+                <td data-label="Acciones" class="acciones">
+                  <a [routerLink]="['/trainer/alumnos', alumno.id, 'rutinas']" class="btn btn-primary">
+                    Gestionar Rutinas
+                  </a>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="5" class="no-data">No hay alumnos clientes registrados.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>

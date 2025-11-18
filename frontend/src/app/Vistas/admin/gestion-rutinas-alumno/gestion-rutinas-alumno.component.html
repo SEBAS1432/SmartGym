@@ -1,0 +1,49 @@
+<div class="gestion-container">
+    <div class="header-section">
+      <h1>Gestionar Rutinas de: {{ alumnoNombre }}</h1>
+      <button class="btn btn-primary" (click)="irACrearRutina()">
+        + Asignar Nueva Rutina
+      </button>
+    </div>
+    <a [routerLink]="['/trainer/alumnos']" class="btn btn-secondary mb-3">&larr; Volver a Alumnos</a>
+  
+    @if (isLoading) {
+      <div class="loading">Cargando rutinas...</div>
+    } @else {
+      <div class="tabla-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre Rutina</th>
+              <th>Objetivo</th>
+              <th>N° Ejercicios</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (rutina of rutinas; track rutina.id) {
+              <tr>
+                <td data-label="Nombre">{{ rutina.nombre }}</td>
+                <td data-label="Objetivo">{{ rutina.objetivo || '-' }}</td>
+                <td data-label="N° Ejercicios">{{ rutina.ejercicios?.length || 0 }}</td>
+                <td data-label="Estado">
+                  <span class="badge" [ngClass]="'estado-' + rutina.estado.toLowerCase()">
+                    {{ rutina.estado }}
+                  </span>
+                </td>
+                <td data-label="Acciones" class="acciones">
+                  <button class="btn btn-warning" [routerLink]="['/trainer/rutinas/editar', rutina.id]">Editar</button>
+                  <button class="btn btn-danger" (click)="eliminar(rutina.id)">Eliminar</button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="5" class="no-data">Este alumno no tiene rutinas asignadas.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>

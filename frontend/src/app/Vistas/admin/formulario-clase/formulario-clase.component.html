@@ -1,0 +1,92 @@
+<div class="form-container">
+    <h1 class="form-title">
+      @if (isEditMode) {
+        Editar Clase
+      } @else {
+        Crear Nueva Clase
+      }
+    </h1>
+  
+    @if (isLoading) {
+      <div class="loading">Cargando...</div>
+    } @else {
+      <form [formGroup]="claseForm" (ngSubmit)="onSubmit()">
+  
+        <div class="form-row">
+          <div class="form-group">
+            <label for="titulo">Título</label>
+            <input id="titulo" type="text" formControlName="titulo">
+            @if (claseForm.get('titulo')?.invalid && claseForm.get('titulo')?.touched) {
+              <small class="error-msg">El título es requerido.</small>
+            }
+          </div>
+          <div class="form-group">
+            <label for="tipo">Tipo (Ej: Yoga, HIIT)</label>
+            <input id="tipo" type="text" formControlName="tipo">
+          </div>
+        </div>
+  
+        <div class="form-row">
+          <div class="form-group">
+            <label for="instructorId">Instructor</label>
+            <select id="instructorId" formControlName="instructorId">
+              <option [ngValue]="null" disabled>Seleccione un instructor...</option>
+              @for (instructor of instructores; track instructor.id) {
+                <option [ngValue]="instructor.id">
+                  {{ instructor.nombres }} {{ instructor.apellidos }} ({{ instructor.rol }})
+                </option>
+              }
+            </select>
+            @if (claseForm.get('instructorId')?.invalid && claseForm.get('instructorId')?.touched) {
+              <small class="error-msg">Debe seleccionar un instructor.</small>
+            }
+          </div>
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <select id="estado" formControlName="estado">
+              <option value="PROGRAMADA">Programada</option>
+              <option value="CANCELADA">Cancelada</option>
+              <option value="COMPLETADA">Completada</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fechaInicio">Fecha y Hora de Inicio</label>
+            <input id="fechaInicio" type="datetime-local" formControlName="fechaInicio">
+            @if (claseForm.get('fechaInicio')?.invalid && claseForm.get('fechaInicio')?.touched) {
+              <small class="error-msg">La fecha es requerida.</small>
+            }
+          </div>
+          <div class="form-group">
+            <label for="duracionMinutos">Duración (minutos)</label>
+            <input id="duracionMinutos" type="number" formControlName="duracionMinutos">
+          </div>
+          <div class="form-group">
+            <label for="capacidad">Capacidad (Cupos)</label>
+            <input id="capacidad" type="number" formControlName="capacidad">
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" rows="4" formControlName="descripcion"></textarea>
+        </div>
+  
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" [routerLink]="['/trainer/clases']">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="claseForm.invalid || isLoading">
+            @if (isLoading) {
+              Guardando...
+            } @else {
+              Guardar Cambios
+            }
+          </button>
+        </div>
+  
+      </form>
+    }
+  </div>

@@ -1,0 +1,83 @@
+<div class="reporte-container">
+    <h1>Reporte Semanal</h1>
+  
+    @if (isLoading) {
+      <div class="loading">Generando reporte... 📈</div>
+    } @else if (reporte) {
+      <p class="report-subtitle">
+        Mostrando estadísticas desde el 
+        <strong>{{ reporte.fechaInicio | date:'longDate' }}</strong> 
+        hasta el 
+        <strong>{{ reporte.fechaFin | date:'longDate' }}</strong>.
+      </p>
+      <div class="report-header">
+        <h1>Reporte Semanal</h1>
+        <div class="botones-descarga">
+          <button class="btn-download csv" (click)="descargarCsv()" [disabled]="isDownloadingCsv">
+            @if (isDownloadingCsv) {
+              Descargando...
+            } @else {
+              Descargar CSV
+            }
+          </button>
+          <button class="btn-download pdf" (click)="descargarPdf()" [disabled]="isDownloadingPdf">
+            @if (isDownloadingPdf) {
+              Generando PDF...
+            } @else {
+              Descargar PDF
+            }
+          </button>
+        </div>
+      </div>
+    
+      @if (isLoading) {
+        } @else if (reporte) {
+        } @else {
+        }
+      <div class="stats-grid">
+  
+        <div class="stat-card ingresos">
+          <div class="stat-icon">💰</div>
+          <div class="stat-info">
+            <span class="stat-value">{{ reporte.ingresosTotales | currency:'S/ ' }}</span>
+            <span class="stat-label">Ingresos Totales</span>
+          </div>
+        </div>
+  
+        <div class="stat-card pagos">
+          <div class="stat-icon">💳</div>
+          <div class="stat-info">
+            <span class="stat-value">{{ reporte.totalPagos }}</span>
+            <span class="stat-label">Pagos Registrados</span>
+          </div>
+        </div>
+  
+        <div class="stat-card usuarios">
+          <div class="stat-icon">👤</div>
+          <div class="stat-info">
+            <span class="stat-value">+ {{ reporte.nuevosUsuarios }}</span>
+            <span class="stat-label">Nuevos Usuarios</span>
+          </div>
+        </div>
+  
+        <div class="stat-card clases">
+          <div class="stat-icon">📚</div>
+          <div class="stat-info">
+            <span class="stat-value">+ {{ reporte.clasesCreadas }}</span>
+            <span class="stat-label">Clases Creadas</span>
+          </div>
+        </div>
+  
+        <div class="stat-card reservas">
+          <div class="stat-icon">✅</div>
+          <div class="stat-info">
+            <span class="stat-value">{{ reporte.reservasHechas }}</span>
+            <span class="stat-label">Reservas Realizadas</span>
+          </div>
+        </div>
+  
+      </div>
+    } @else {
+      <p class="no-data">No se pudo cargar el reporte.</p>
+    }
+  </div>

@@ -1,0 +1,32 @@
+<button class="chat-toggle-button" (click)="toggleChat()">
+    @if (isChatOpen) {
+      <span>✕</span> } @else {
+      <span>💬</span> }
+  </button>
+  
+  @if (isChatOpen) {
+    <div class="chat-window">
+  
+      <div class="chat-header">
+        <h3>Asistente SmartGym</h3>
+        <p>Preguntas Frecuentes</p>
+      </div>
+  
+      <div class="chat-body">
+        @for (msg of mensajes; track $index) {
+          <div class="mensaje" [ngClass]="msg.autor">
+            <p>{{ msg.texto }}</p>
+          </div>
+        }
+      </div>
+  
+      <div class="chat-footer">
+        @for (faq of preguntasFrecuentes; track $index) {
+          <button class="pregunta-btn" (click)="seleccionarPregunta(faq)">
+            {{ faq.pregunta }}
+          </button>
+        }
+      </div>
+  
+    </div>
+  }

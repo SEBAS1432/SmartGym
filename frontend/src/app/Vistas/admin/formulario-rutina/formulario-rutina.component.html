@@ -1,0 +1,80 @@
+<div class="form-container">
+    <h1 class="form-title">
+      @if (isEditMode) {
+        Editar Rutina
+      } @else {
+        Asignar Nueva Rutina
+      }
+    </h1>
+  
+    @if (isLoading) {
+      <div class="loading">Cargando...</div>
+    } @else {
+      <form [formGroup]="rutinaForm" (ngSubmit)="onSubmit()">
+  
+        <div class="card-style">
+          <h2>Datos Principales</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre de la Rutina (Ej: Día 1 - Pecho)</label>
+              <input id="nombre" type="text" formControlName="nombre">
+              @if (rutinaForm.get('nombre')?.invalid && rutinaForm.get('nombre')?.touched) {
+                <small class="error-msg">El nombre es requerido.</small>
+              }
+            </div>
+            <div class="form-group">
+              <label for="objetivo">Objetivo (Ej: Hipertrofia)</label>
+              <input id="objetivo" type="text" formControlName="objetivo">
+            </div>
+          </div>
+          <input type="hidden" formControlName="usuarioId">
+        </div>
+  
+        <div class="card-style">
+          <h2>Ejercicios</h2>
+  
+          <div formArrayName="ejercicios">
+  
+            @for (ejercicio of ejercicios.controls; track $index; let i = $index) {
+              <div [formGroupName]="i" class="ejercicio-row">
+  
+                <div class="form-group">
+                  <label>Ejercicio {{ i + 1 }}</label>
+                  <input type="text" formControlName="ejercicio" placeholder="Nombre del Ejercicio">
+                </div>
+                <div class="form-group-small">
+                  <label>Series</label>
+                  <input type="number" formControlName="series" placeholder="Ej: 4">
+                </div>
+                <div class="form-group-small">
+                  <label>Reps</label>
+                  <input type="number" formControlName="repeticiones" placeholder="Ej: 12">
+                </div>
+                <div class="form-group-small">
+                  <label>Descanso (s)</label>
+                  <input type="number" formControlName="descansoSegundos" placeholder="Ej: 60">
+                </div>
+                <button type="button" class="btn btn-danger-outline" (click)="eliminarEjercicio(i)">
+                  X
+                </button>
+  
+              </div>
+            }
+          </div>
+  
+          <button type="button" class="btn btn-secondary" (click)="agregarEjercicio()">
+            + Añadir Ejercicio
+          </button>
+        </div>
+  
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" [routerLink]="['/trainer/alumnos']">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="rutinaForm.invalid || isLoading">
+            @if (isLoading) { Guardando... } @else { Guardar Rutina }
+          </button>
+        </div>
+      </form>
+    }
+  </div>

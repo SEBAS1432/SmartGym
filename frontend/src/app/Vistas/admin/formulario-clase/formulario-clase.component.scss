@@ -1,0 +1,355 @@
+@import '../../../../variables';
+
+// ============================================
+// CONTENEDOR PRINCIPAL DEL FORMULARIO
+// ============================================
+.form-container {
+  max-width: 48rem; /* max-w-4xl */
+  margin-left: auto;
+  margin-right: auto; /* mx-auto */
+  padding: 2rem; /* p-8 */
+  border-radius: 1rem; /* rounded-2xl */
+  color: white; /* text-white */
+  position: relative;
+  overflow: hidden;
+
+  background: linear-gradient(145deg, rgba(42, 42, 42, 0.95), rgba(30, 30, 30, 0.95));
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 193, 7, 0.1);
+  backdrop-filter: blur(10px);
+  animation: fadeInUp 0.6s ease-out;
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), transparent, rgba(255, 152, 0, 0.1));
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10rem; /* w-40 */
+    height: 10rem; /* h-40 */
+    pointer-events: none;
+    background: radial-gradient(circle at top right, rgba(255, 193, 7, 0.15), transparent 70%);
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+// ============================================
+// TÍTULO DEL FORMULARIO
+// ============================================
+.form-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700;
+
+  background: linear-gradient(135deg, $primary-yellow 0%, $primary-orange 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 4px 20px rgba(255, 193, 7, 0.3);
+  animation: slideInDown 0.6s ease-out;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    height: 4px;
+    border-radius: 9999px;
+    bottom: -12px;
+    width: 60px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, $primary-yellow, $primary-orange);
+    box-shadow: 0 2px 10px rgba(255, 193, 7, 0.5);
+  }
+
+  @keyframes slideInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+// ============================================
+// FILAS DEL FORMULARIO
+// ============================================
+.form-row {
+  display: grid;
+  gap: 1.5rem; /* gap-6 */
+  margin-bottom: 1.5rem;
+
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  animation: fadeIn 0.6s ease-out;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+// ============================================
+// GRUPOS DE FORMULARIO
+// ============================================
+.form-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  animation: slideInLeft 0.6s ease-out both;
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.15s; }
+  &:nth-child(3) { animation-delay: 0.2s; }
+
+  label {
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #d1d5db; /* text-gray-300 */
+    transition: color 0.3s ease;
+  }
+
+  &:focus-within label {
+    color: $primary-yellow;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="datetime-local"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: rgba(51, 51, 51, 0.8);
+    border: 2px solid rgba(85, 85, 85, 0.5);
+    color: white;
+    transition: all 0.3s;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary-yellow;
+      background-color: rgba(51, 51, 51, 1);
+      box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1),
+                  0 4px 15px rgba(255, 193, 7, 0.2);
+      transform: translateY(-1px);
+    }
+
+    &:hover:not(:focus) {
+      border-color: rgba(255, 193, 7, 0.3);
+    }
+
+    &.ng-invalid.ng-touched {
+      border-color: #f44336;
+      background-color: rgba(244, 67, 54, 0.05);
+    }
+  }
+
+  select {
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    appearance: none;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+  }
+}
+
+// ============================================
+// MENSAJES DE ERROR
+// ============================================
+.error-msg {
+  color: #f87171; /* text-red-400 */
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  animation: shake 0.3s ease-in-out, fadeIn 0.3s ease-out;
+
+  &::before {
+    content: '⚠';
+    font-size: 14px;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+}
+
+// ============================================
+// ACCIONES DEL FORMULARIO
+// ============================================
+.form-actions {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 193, 7, 0.15);
+
+  animation: fadeIn 0.6s ease-out 0.3s both;
+}
+
+// ============================================
+// BOTONES
+// ============================================
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-width: 140px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  &:hover:not(:disabled)::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  span {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.btn-primary {
+  color: black;
+  font-weight: 800;
+  background: linear-gradient(135deg, $primary-yellow 0%, $primary-orange 100%);
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 193, 7, 0.6);
+  }
+
+  &:disabled {
+    background: #555;
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+.btn-secondary {
+  background: #374151; /* bg-gray-700 */
+  color: white;
+  border: 2px solid rgba(255, 193, 7, 0.2);
+
+  &:hover {
+    background: #4b5563; /* bg-gray-600 */
+    border-color: rgba(255, 193, 7, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+@media (max-width: 768px) {
+  .form-container {
+    padding: 1.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .form-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 1rem;
+  }
+
+  .form-title {
+    font-size: 1.25rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    min-width: auto;
+  }
+}

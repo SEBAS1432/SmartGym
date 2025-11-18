@@ -1,0 +1,111 @@
+<div class="clases-container">
+  <!-- Background overlay con efectos -->
+  <div class="background-overlay"></div>
+  
+  <!-- Elementos flotantes decorativos -->
+  <div class="floating-elements">
+    <div class="float-icon icon-1">🏃</div>
+    <div class="float-icon icon-2">🧘</div>
+    <div class="float-icon icon-3">🚴</div>
+    <div class="float-icon icon-4">🤸</div>
+  </div>
+  
+  <!-- Líneas decorativas -->
+  <div class="decorative-lines">
+    <div class="line line-1"></div>
+    <div class="line line-2"></div>
+  </div>
+
+  <div class="content-wrapper">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-badge">
+        <span class="badge-icon">📅</span>
+        <span class="badge-text">Clases</span>
+      </div>
+      <h1 class="page-title">
+        <span class="title-main">Clases</span>
+        <span class="title-accent">Programadas</span>
+      </h1>
+      <p class="page-subtitle">
+        <span class="subtitle-icon">✨</span>
+        Reserva tu cupo en nuestras clases grupales
+      </p>
+    </div>
+
+    <!-- Grid de Clases -->
+    <div class="clases-grid">
+      @for (clase of clases; track clase.id) {
+        <div class="clase-card">
+          <div class="card-icon-wrapper">
+            <div class="card-icon-circle bg-gradient-to-br from-purple-500 to-pink-500">
+              <span class="card-icon">🏋️</span>
+            </div>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="card-header">
+            <h3 class="clase-titulo">{{ clase.titulo }}</h3>
+            <span class="tipo-badge">{{ clase.tipo }}</span>
+          </div>
+
+          <div class="card-body">
+            <p class="clase-descripcion">{{ clase.descripcion }}</p>
+            
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-icon">👤</span>
+                <div class="info-content">
+                  <span class="info-label">Instructor</span>
+                  <span class="info-value">{{ clase.instructorNombre }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon">📅</span>
+                <div class="info-content">
+                  <span class="info-label">Cuándo</span>
+                  <span class="info-value">{{ clase.fechaInicio | date:'short' }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon">⏱️</span>
+                <div class="info-content">
+                  <span class="info-label">Duración</span>
+                  <span class="info-value">{{ clase.duracionMinutos }} min</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon">👥</span>
+                <div class="info-content">
+                  <span class="info-label">Cupos</span>
+                  <span class="info-value">{{ clase.capacidad }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button class="btn-reservar" (click)="reservar(clase.id)">
+              <span class="btn-content">
+                <span class="btn-text">Reservar Cupo</span>
+                <span class="btn-arrow">→</span>
+              </span>
+              <div class="btn-glow"></div>
+            </button>
+          </div>
+
+          <div class="card-shine"></div>
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <span class="empty-icon">📭</span>
+          <h3>No hay clases disponibles</h3>
+          <p>No hay clases programadas por el momento. Vuelve pronto.</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

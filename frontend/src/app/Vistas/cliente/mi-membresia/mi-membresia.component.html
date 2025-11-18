@@ -1,0 +1,73 @@
+<div class="membresia-container">
+    <h1>Mi Membresía y Pagos</h1>
+  
+    <section class="membresia-activa card-style">
+      <h2>Estado Actual</h2>
+  
+      @if (isLoadingMembresia) {
+        <div class="loading">Cargando estado de membresía...</div>
+      } @else if (membresiaActiva) {
+        <div class="membresia-details">
+          <div class="detail-item">
+            <span class="label">Tipo:</span>
+            <span class="value tipo-membresia">{{ membresiaActiva.tipo || 'No especificado' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Inicio:</span>
+            <span class="value">{{ membresiaActiva.fechaInicio | date:'longDate' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Vence:</span>
+            <span class="value fecha-fin">{{ membresiaActiva.fechaFin | date:'longDate' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Estado:</span>
+            <span class="value estado-{{ membresiaActiva.estado.toLowerCase() }}">{{ membresiaActiva.estado }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Precio:</span>
+            <span class="value">{{ membresiaActiva.precio | currency:'S/ ' }}</span>
+          </div>
+        </div>
+      } @else if (errorMembresia) {
+        <p class="error-membresia">{{ errorMembresia }}</p>
+      } @else {
+         <p class="no-data">No se encontró información de membresía activa.</p>
+      }
+    </section>
+  
+    <section class="historial-pagos card-style">
+      <h2>Historial de Pagos</h2>
+  
+      @if (isLoadingPagos) {
+        <div class="loading">Cargando historial de pagos...</div>
+      } @else if (historialPagos.length > 0) {
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha Pago</th>
+              <th>Monto</th>
+              <th>Método</th>
+              <th>Estado</th>
+              <th>Referencia</th>
+              <th>Membresía ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (pago of historialPagos; track pago.id) {
+              <tr>
+                <td>{{ pago.fechaPago | date:'medium' }}</td>
+                <td>{{ pago.monto | currency:'S/ ' }}</td>
+                <td>{{ pago.metodoPago }}</td>
+                <td class="status-{{ pago.status.toLowerCase() }}">{{ pago.status }}</td>
+                <td>{{ pago.referencia || '-' }}</td>
+                <td>{{ pago.membresiaId || '-' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        <p class="no-data">No tienes pagos registrados.</p>
+      }
+    </section>
+  </div>

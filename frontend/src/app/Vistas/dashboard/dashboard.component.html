@@ -1,0 +1,301 @@
+<div class="dashboard-container">
+  <!-- Background overlay con efectos -->
+  <div class="background-overlay"></div>
+  
+  <!-- Elementos flotantes decorativos -->
+  <div class="floating-elements">
+    <div class="float-icon icon-1">💪</div>
+    <div class="float-icon icon-2">🏋️</div>
+    <div class="float-icon icon-3">⚡</div>
+    <div class="float-icon icon-4">🔥</div>
+    <div class="float-icon icon-5">🎯</div>
+  </div>
+  
+  <!-- Líneas decorativas animadas -->
+  <div class="decorative-lines">
+    <div class="line line-1"></div>
+    <div class="line line-2"></div>
+  </div>
+
+  <div class="dashboard-content">
+    <!-- Header del Dashboard -->
+    <div class="dashboard-header">
+      <div class="header-left">
+        <div class="welcome-badge">
+          <span class="badge-icon">👋</span>
+          <span class="badge-text">Panel de Control</span>
+        </div>
+        <h1 class="header-title">
+          <span class="welcome-text">Bienvenido,</span>
+          <span class="user-name">{{ nombreUsuario || 'Usuario' }}!</span>
+        </h1>
+        <p class="header-subtitle">
+          <span class="subtitle-icon">✨</span>
+          Aquí puedes ver tu progreso y gestionar tu entrenamiento
+        </p>
+      </div>
+      
+      <div class="header-actions">
+        <a routerLink="/" class="btn-volver">
+          <span class="btn-icon">🏠</span>
+          <span class="btn-text">Inicio</span>
+        </a>
+        <button (click)="cerrarSesion()" class="btn-logout">
+          <span class="btn-text">Salir</span>
+          <span class="btn-icon">🚪</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Estadísticas rápidas -->
+    <div class="stats-banner">
+      <div class="stat-item">
+        <div class="stat-icon">🏃</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ estadisticasSemanales.entrenamientos }}</span>
+          <span class="stat-label">Entrenamientos</span>
+        </div>
+      </div>
+      <div class="stat-separator"></div>
+      <div class="stat-item">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ estadisticasSemanales.minutosTotal }}</span>
+          <span class="stat-label">Minutos</span>
+        </div>
+      </div>
+      <div class="stat-separator"></div>
+      <div class="stat-item">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-info">
+          <span class="stat-value">{{ estadisticasSemanales.caloriasQuemadas }}</span>
+          <span class="stat-label">Calorías</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid principal del Dashboard -->
+    <div class="dashboard-grid">
+      
+      <!-- Columna de Resúmenes -->
+      <div class="resumenes-col">
+        
+        <!-- Card de Membresía -->
+        <div class="resumen-card membresia-card">
+          <div class="card-header">
+            <div class="card-icon-wrapper">
+              <div class="card-icon-circle bg-gradient-to-br from-yellow-400 to-orange-500">
+                <span class="card-icon">💳</span>
+              </div>
+              <div class="card-glow"></div>
+            </div>
+            <h2 class="card-title">Mi Membresía</h2>
+          </div>
+          
+          <div class="card-content">
+            @if (isLoadingMembresia) {
+              <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Cargando...</p>
+              </div>
+            } @else if (membresiaResumen) {
+              <div class="membresia-info">
+                <div class="info-row">
+                  <span class="info-label">Tipo:</span>
+                  <span class="info-value premium-badge">
+                    <span class="badge-dot"></span>
+                    {{ membresiaResumen.tipo || 'N/A' }}
+                  </span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Vence:</span>
+                  <span class="info-value">{{ membresiaResumen.fechaFin | date:'longDate' }}</span>
+                </div>
+                <div class="progress-bar-wrapper">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 65%"></div>
+                  </div>
+                  <span class="progress-text">65 días restantes</span>
+                </div>
+              </div>
+              <a routerLink="/mi-membresia" class="btn-card-action">
+                <span class="btn-text">Ver Detalles</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            } @else {
+              <div class="empty-state">
+                <span class="empty-icon">📭</span>
+                <p>No tienes una membresía activa.</p>
+                <a href="#" class="btn-card-action primary">
+                  <span class="btn-text">Ver Planes</span>
+                  <span class="btn-icon">✨</span>
+                </a>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Card de Puntos/Logros -->
+        <div class="resumen-card logros-card">
+          <div class="card-header">
+            <div class="card-icon-wrapper">
+              <div class="card-icon-circle bg-gradient-to-br from-purple-500 to-pink-500">
+                <span class="card-icon">🏆</span>
+              </div>
+              <div class="card-glow"></div>
+            </div>
+            <h2 class="card-title">Mis Puntos</h2>
+          </div>
+          
+          <div class="card-content">
+            @if (isLoadingPuntos) {
+              <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Cargando...</p>
+              </div>
+            } @else {
+              <div class="puntos-display">
+                <div class="puntos-valor">
+                  {{ puntosResumen }}
+                  <span class="puntos-label">pts</span>
+                </div>
+                <div class="puntos-nivel">
+                  <span class="nivel-badge">
+                    <span class="nivel-icon">⭐</span>
+                    Nivel 5
+                  </span>
+                </div>
+              </div>
+              <div class="puntos-progreso">
+                <div class="progreso-bar">
+                  <div class="progreso-fill" style="width: 75%"></div>
+                </div>
+                <span class="progreso-text">750 pts para siguiente nivel</span>
+              </div>
+              <a routerLink="/mis-logros" class="btn-card-action">
+                <span class="btn-text">Ver Logros</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            }
+          </div>
+        </div>
+
+        <!-- Card de Progreso -->
+        <div class="resumen-card progreso-card">
+          <div class="card-header">
+            <div class="card-icon-wrapper">
+              <div class="card-icon-circle bg-gradient-to-br from-green-500 to-emerald-500">
+                <span class="card-icon">📊</span>
+              </div>
+              <div class="card-glow"></div>
+            </div>
+            <h2 class="card-title">Mi Progreso</h2>
+          </div>
+          
+          <div class="card-content">
+            @if (isLoadingProgreso) {
+              <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Cargando...</p>
+              </div>
+            } @else if (ultimoProgreso) {
+              <div class="progreso-info">
+                <div class="progreso-fecha">
+                  <span class="fecha-icon">📅</span>
+                  Último registro: {{ ultimoProgreso.fecha | date:'shortDate' }}
+                </div>
+                <div class="progreso-metricas">
+                  <div class="metrica-item">
+                    <span class="metrica-icon">⚖️</span>
+                    <div class="metrica-data">
+                      <span class="metrica-valor">{{ ultimoProgreso.pesoKg || '--' }} kg</span>
+                      <span class="metrica-label">Peso</span>
+                    </div>
+                  </div>
+                  @if (ultimoProgreso.porcentajeGrasa) {
+                    <div class="metrica-item">
+                      <span class="metrica-icon">📉</span>
+                      <div class="metrica-data">
+                        <span class="metrica-valor">{{ ultimoProgreso.porcentajeGrasa }}%</span>
+                        <span class="metrica-label">Grasa</span>
+                      </div>
+                    </div>
+                  }
+                  @if (ultimoProgreso.musculo) {
+                    <div class="metrica-item">
+                      <span class="metrica-icon">💪</span>
+                      <div class="metrica-data">
+                        <span class="metrica-valor">{{ ultimoProgreso.musculo }}%</span>
+                        <span class="metrica-label">Músculo</span>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+              <a routerLink="/mi-progreso" class="btn-card-action">
+                <span class="btn-text">Ver Historial</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            } @else {
+              <div class="empty-state">
+                <span class="empty-icon">📈</span>
+                <p>Aún no has registrado tu progreso.</p>
+                <a routerLink="/mi-progreso" class="btn-card-action primary">
+                  <span class="btn-text">Registrar Ahora</span>
+                  <span class="btn-icon">➕</span>
+                </a>
+              </div>
+            }
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Columna de Accesos Rápidos -->
+      <div class="accesos-col">
+        <div class="accesos-header">
+          <div class="accesos-title-wrapper">
+            <span class="accesos-icon">⚡</span>
+            <h2 class="accesos-title">Accesos Rápidos</h2>
+          </div>
+          <span class="accesos-subtitle">Navega rápidamente a tus secciones</span>
+        </div>
+        
+        <div class="accesos-grid">
+          @for (acceso of accesosRapidos; track acceso.ruta) {
+            <a [routerLink]="acceso.ruta" class="acceso-card">
+              <div class="acceso-icon-wrapper bg-gradient-to-br {{ acceso.gradient }}">
+                <span class="acceso-icon">{{ acceso.icono }}</span>
+              </div>
+              <div class="acceso-content">
+                <div class="acceso-header-row">
+                  <h3 class="acceso-titulo">{{ acceso.titulo }}</h3>
+                  @if (acceso.badge) {
+                    <span class="acceso-badge">{{ acceso.badge }}</span>
+                  }
+                </div>
+                <p class="acceso-descripcion">{{ acceso.descripcion }}</p>
+              </div>
+              <span class="acceso-arrow">→</span>
+              <div class="acceso-shine"></div>
+            </a>
+          }
+        </div>
+
+        <!-- Tips rápidos -->
+        <div class="tips-card">
+          <div class="tip-header">
+            <span class="tip-icon">💡</span>
+            <h3 class="tip-title">Consejo del Día</h3>
+          </div>
+          <p class="tip-content">
+            Mantén una hidratación constante durante tus entrenamientos. 
+            Se recomienda beber al menos 500ml de agua por cada hora de ejercicio.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

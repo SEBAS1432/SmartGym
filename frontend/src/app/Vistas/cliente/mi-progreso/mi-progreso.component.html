@@ -1,0 +1,182 @@
+<div class="progreso-container">
+  <!-- Background overlay -->
+  <div class="background-overlay"></div>
+  
+  <!-- Elementos flotantes -->
+  <div class="floating-elements">
+    <div class="float-icon icon-1">📊</div>
+    <div class="float-icon icon-2">📈</div>
+    <div class="float-icon icon-3">⚖️</div>
+    <div class="float-icon icon-4">💪</div>
+  </div>
+  
+  <!-- Líneas decorativas -->
+  <div class="decorative-lines">
+    <div class="line line-1"></div>
+    <div class="line line-2"></div>
+  </div>
+
+  <div class="content-wrapper">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-badge">
+        <span class="badge-icon">📊</span>
+        <span class="badge-text">Seguimiento</span>
+      </div>
+      <h1 class="page-title">
+        <span class="title-main">Mi</span>
+        <span class="title-accent">Progreso</span>
+      </h1>
+      <p class="page-subtitle">
+        <span class="subtitle-icon">✨</span>
+        Registra y visualiza tu evolución física día a día
+      </p>
+    </div>
+
+    <!-- Sección de Registro -->
+    <section class="registro-section card-style">
+      <div class="section-header">
+        <div class="section-icon-wrapper">
+          <div class="section-icon-circle bg-gradient-to-br from-blue-500 to-cyan-500">
+            <span class="section-icon">➕</span>
+          </div>
+          <div class="section-glow"></div>
+        </div>
+        <h2 class="section-title">Registrar Progreso Diario</h2>
+      </div>
+
+      <form [formGroup]="progresoForm" (ngSubmit)="registrarProgreso()" class="progreso-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="fecha" class="form-label">
+              <span class="label-icon">📅</span>
+              Fecha
+            </label>
+            <input 
+              type="date" 
+              id="fecha" 
+              formControlName="fecha" 
+              class="form-control"
+              [class.input-error]="progresoForm.get('fecha')?.invalid && progresoForm.get('fecha')?.touched">
+            @if (progresoForm.get('fecha')?.invalid && progresoForm.get('fecha')?.touched) {
+              <small class="error-message">
+                <span class="error-icon">⚠️</span>
+                La fecha es requerida.
+              </small>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="pesoKg" class="form-label">
+              <span class="label-icon">⚖️</span>
+              Peso (kg)
+            </label>
+            <input 
+              type="number" 
+              id="pesoKg" 
+              formControlName="pesoKg" 
+              class="form-control" 
+              placeholder="Ej: 75.5"
+              step="0.1"
+              [class.input-error]="progresoForm.get('pesoKg')?.hasError('min')">
+            @if (progresoForm.get('pesoKg')?.hasError('min')) {
+              <small class="error-message">
+                <span class="error-icon">⚠️</span>
+                El peso no puede ser negativo.
+              </small>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="grasa" class="form-label">
+              <span class="label-icon">📉</span>
+              Grasa Corporal (%)
+            </label>
+            <input 
+              type="number" 
+              id="grasa" 
+              formControlName="grasaCorporalPct" 
+              class="form-control" 
+              placeholder="Ej: 15.2"
+              step="0.1"
+              [class.input-error]="progresoForm.get('grasaCorporalPct')?.hasError('min') || progresoForm.get('grasaCorporalPct')?.hasError('max')">
+            @if (progresoForm.get('grasaCorporalPct')?.hasError('min') || progresoForm.get('grasaCorporalPct')?.hasError('max')) {
+              <small class="error-message">
+                <span class="error-icon">⚠️</span>
+                Debe estar entre 0 y 100.
+              </small>
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notas" class="form-label">
+            <span class="label-icon">📝</span>
+            Notas (Opcional)
+          </label>
+          <textarea 
+            id="notas" 
+            formControlName="notas" 
+            class="form-control" 
+            rows="3" 
+            placeholder="¿Cómo te sentiste hoy? ¿Algún PR?"></textarea>
+        </div>
+
+        <button type="submit" class="btn-registrar" [disabled]="progresoForm.invalid">
+          <span class="btn-content">
+            <span class="btn-icon">💾</span>
+            <span class="btn-text">Registrar Entrada</span>
+            <span class="btn-arrow">→</span>
+          </span>
+          <div class="btn-glow"></div>
+        </button>
+      </form>
+    </section>
+
+    <!-- Sección de Visualización -->
+    <section class="visualizacion-section card-style">
+      <div class="section-header">
+        <div class="section-icon-wrapper">
+          <div class="section-icon-circle bg-gradient-to-br from-purple-500 to-pink-500">
+            <span class="section-icon">📈</span>
+          </div>
+          <div class="section-glow"></div>
+        </div>
+        <h2 class="section-title">Evolución del Peso</h2>
+      </div>
+
+      @if (isLoading) {
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Cargando gráfico... 📊</p>
+        </div>
+      } @else if (historialProgreso.length > 0 && historialProgreso[0].series.length > 0) {
+        <div class="chart-container">
+          <ngx-charts-line-chart
+            [view]="view"
+            [scheme]="colorScheme"
+            [legend]="legend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxis]="xAxis"
+            [yAxis]="yAxis"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [timeline]="timeline"
+            [results]="historialProgreso"
+            [xAxisTickFormatting]="formatoFechaEjeX" 
+            (select)="onSelect($event)"
+            (activate)="onActivate($event)"
+            (deactivate)="onDeactivate($event)">
+          </ngx-charts-line-chart>
+        </div>
+      } @else {
+        <div class="empty-state">
+          <span class="empty-icon">📊</span>
+          <h3>Sin datos para graficar</h3>
+          <p>Aún no has registrado datos de peso para mostrar en el gráfico.</p>
+        </div>
+      }
+    </section>
+  </div>
+</div>

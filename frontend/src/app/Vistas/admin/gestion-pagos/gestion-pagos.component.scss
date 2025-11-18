@@ -1,0 +1,481 @@
+// Reutilizamos los estilos base del formulario de clases
+@import '../formulario-clase/formulario-clase.component.scss';
+
+// ============================================
+// CONTENEDOR PRINCIPAL
+// ============================================
+.gestion-container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  position: relative;
+  animation: fadeIn 0.6s ease-out;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  // Decoración de fondo
+  &::before {
+    content: '';
+    position: absolute;
+    top: -5rem;
+    right: -5rem;
+    width: 24rem;
+    height: 24rem;
+    pointer-events: none;
+    opacity: 0.2;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+    z-index: 0;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5rem;
+    left: -5rem;
+    pointer-events: none;
+    opacity: 0.2;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 152, 0, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+    z-index: 0;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -30px) scale(1.1); }
+  }
+  
+  // Contenido sobre decoraciones
+  > * {
+    position: relative;
+    z-index: 10;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, $primary-yellow 0%, $primary-orange 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 20px rgba(255, 193, 7, 0.3);
+    animation: slideInDown 0.8s ease-out;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      height: 0.25rem;
+      border-radius: 9999px;
+      bottom: -12px;
+      width: 100px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, transparent, $primary-yellow, $primary-orange, transparent);
+      box-shadow: 0 2px 15px rgba(255, 193, 7, 0.6);
+      animation: expandWidth 0.8s ease-out 0.3s both;
+    }
+    
+    @keyframes slideInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes expandWidth {
+      from { width: 0; }
+      to { width: 100px; }
+    }
+  }
+}
+
+// ============================================
+// GRID DE GESTIÓN
+// ============================================
+.gestion-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ============================================
+// CARD STYLE
+// ============================================
+.card-style {
+  border-radius: 1rem;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(42, 42, 42, 0.95), rgba(30, 30, 30, 0.95));
+  border: 1px solid rgba(255, 193, 7, 0.15);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  // Borde animado superior
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0.25rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    background: linear-gradient(90deg, transparent, rgba(255, 193, 7, 0.6), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  
+  // Decoración de esquina
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle at top right, rgba(255, 193, 7, 0.15), transparent 60%);
+    opacity: 0.5;
+  }
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 193, 7, 0.3);
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+  
+  // Animación escalonada
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+}
+
+// ============================================
+// FORM TITLE
+// ============================================
+.form-title {
+  color: white;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(135deg, $primary-yellow 0%, $primary-orange 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  border-bottom: 2px solid rgba(255, 193, 7, 0.2);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 0.125rem;
+    border-radius: 9999px;
+    width: 80px;
+    background: linear-gradient(90deg, $primary-yellow, $primary-orange);
+    box-shadow: 0 2px 10px rgba(255, 193, 7, 0.5);
+  }
+  
+  // Icono decorativo según el tipo de formulario
+  &:first-of-type::before {
+    content: '💳';
+    margin-right: 0.5rem;
+    font-size: 1.3em;
+  }
+}
+
+// Segundo formulario (pagos) tiene icono diferente
+.gestion-grid > .card-style:nth-child(2) .form-title::before {
+  content: '💰';
+}
+
+// ============================================
+// FORM CONTROL (heredan de formulario base)
+// ============================================
+.form-control {
+  // Ya heredan los estilos del formulario-clase
+
+}
+
+// ============================================
+// LOADING STATE
+// ============================================
+.loading {
+  text-align: center;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: $primary-yellow;
+  animation: pulse 1.5s ease-in-out infinite;
+  
+  &::before {
+    content: '⏳';
+    font-size: 3rem;
+    line-height: 1;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  
+  &::after {
+    content: '...';
+    animation: dots 1.5s steps(4, end) infinite;
+  }
+  
+  @keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+  }
+}
+
+// ============================================
+// MEJORAS EN FORM-GROUP
+// ============================================
+.form-group {
+  // Animación de entrada escalonada
+  animation: slideInLeft 0.6s ease-out both;
+  
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.05}s;
+    }
+  }
+}
+
+// ============================================
+// BOTÓN PRIMARY MEJORADO
+// ============================================
+.btn-primary {
+  width: 100%;
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, $primary-yellow 0%, $primary-orange 100%);
+  box-shadow: 0 6px 25px rgba(255, 193, 7, 0.4);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 35px rgba(255, 193, 7, 0.6);
+    
+    &::before {
+      width: 400px;
+      height: 400px;
+    }
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    background-color: #4b5563;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, #555, #444);
+    box-shadow: none;
+    opacity: 0.6;
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+@media (max-width: 992px) {
+  .gestion-container {
+    h1 {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      margin-bottom: 2rem;
+      
+      &::after {
+        width: 80px;
+      }
+    }
+  }
+  
+  .gestion-grid {
+    gap: 1.5rem;
+  }
+  
+  .card-style {
+    padding: 1.5rem;
+  }
+  
+  .form-title {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .gestion-container {
+    h1 {
+      font-size: 1.5rem;
+      line-height: 2rem;
+      margin-bottom: 1.5rem;
+      
+      &::after {
+        width: 60px;
+      }
+    }
+    
+    &::before,
+    &::after {
+      opacity: 0.1;
+    }
+  }
+  
+  .card-style {
+    padding: 1.25rem;
+    
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+  
+  .form-title {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    margin-bottom: 1rem;
+    
+    &::before {
+      font-size: 1.1em;
+    }
+  }
+  
+  .btn-primary {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gestion-container {
+    h1 {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+  }
+  
+  .gestion-grid {
+    gap: 1rem;
+  }
+  
+  .card-style {
+    padding: 1rem;
+  }
+  
+  .form-title {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    
+    &::before {
+      font-size: 1em;
+    }
+  }
+}
+
+// ============================================
+// INDICADOR DE FORMULARIO ACTIVO
+// ============================================
+.card-style:focus-within {
+  border-color: rgba(255, 193, 7, 0.4);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 193, 7, 0.3);
+  
+  &::before {
+    opacity: 1;
+  }
+}
+
+// ============================================
+// MEJORA EN SELECT OPTIONS
+// ============================================
+select.form-control {
+  option {
+    background-color: #2a2a2a;
+    color: white;
+    padding: 10px;
+    
+    &:disabled {
+      color: #666;
+    }
+  }
+}

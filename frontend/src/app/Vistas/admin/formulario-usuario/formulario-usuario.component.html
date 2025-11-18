@@ -1,0 +1,199 @@
+<div class="form-container">
+  <h1 class="form-title">
+    @if (isEditMode) {
+      Detalles del Usuario
+    } @else {
+      Crear Nuevo Usuario
+    }
+  </h1>
+
+  @if (isLoading && isEditMode) {
+    <div class="loading">Cargando datos del usuario...</div>
+  } @else {
+    
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmitUsuario()">
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombres">Nombres</label>
+          <input id="nombres" type="text" formControlName="nombres">
+          @if (usuarioForm.get('nombres')?.invalid && usuarioForm.get('nombres')?.touched) {
+            <small class="error-msg">El nombre es requerido.</small>
+          }
+        </div>
+        <div class="form-group">
+          <label for="apellidos">Apellidos</label>
+          <input id="apellidos" type="text" formControlName="apellidos">
+          @if (usuarioForm.get('apellidos')?.invalid && usuarioForm.get('apellidos')?.touched) {
+            <small class="error-msg">El apellido es requerido.</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="correo">Correo Electrónico</label>
+          <input id="correo" type="email" formControlName="correo">
+          @if (usuarioForm.get('correo')?.invalid && usuarioForm.get('correo')?.touched) {
+            <small class="error-msg">
+              @if (usuarioForm.get('correo')?.hasError('required')) {
+                El correo es requerido.
+              } @else if (usuarioForm.get('correo')?.hasError('email')) {
+                El formato del correo es inválido.
+              }
+            </small>
+          }
+        </div>
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input id="telefono" type="tel" formControlName="telefono" placeholder="Opcional">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="contrasena">Contraseña</label>
+          @if (isEditMode) {
+            <input id="contrasena" type="password" formControlName="contrasena" placeholder="Dejar en blanco para no cambiar">
+          } @else {
+            <input id="contrasena" type="password" formControlName="contrasena" placeholder="Mínimo 6 caracteres">
+          }
+          @if (usuarioForm.get('contrasena')?.invalid && usuarioForm.get('contrasena')?.touched) {
+            <small class="error-msg">La contraseña es requerida y debe tener al menos 6 caracteres.</small>
+          }
+        </div>
+        <div class="form-group">
+          <label for="rol">Rol</label>
+          <select id="rol" formControlName="rol">
+            <option value="CLIENTE">Cliente</option>
+            <option value="TRAINER">Trainer</option>
+            <option value="ADMIN">Admin</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="estado">Estado</label>
+          <select id="estado" formControlName="estado">
+            <option value="ACTIVO">Activo</option>
+            <option value="INACTIVO">Inactivo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <!-- Espacio vacío para mantener el grid simétrico -->
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a [routerLink]="['/admin/usuarios']" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary" [disabled]="usuarioForm.invalid || isLoading">
+          @if (isLoading) { Guardando... } @else { Guardar Usuario }
+        </button>
+      </div>
+    </form>
+
+    @if (isEditMode) {
+      <div class="historial-container">
+        
+        <div class="historial-card">
+          <div class="card-header">
+            <h2>
+              <span class="icon">📋</span>
+              Historial de Membresías
+            </h2>
+          </div>
+          @if (historialMembresias.length > 0) {
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tipo de Membresía</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (mem of historialMembresias; track mem.id) {
+                    <tr>
+                      <td>
+                        <span class="tipo-membresia">{{ mem.tipo }}</span>
+                      </td>
+                      <td>{{ mem.fechaInicio | date:'dd/MM/yyyy' }}</td>
+                      <td>{{ mem.fechaFin | date:'dd/MM/yyyy' }}</td>
+                      <td>
+                        <span class="precio">{{ mem.precio | currency:'S/ ' }}</span>
+                      </td>
+                      <td>
+                        <span class="badge" [ngClass]="'estado-' + mem.estado.toLowerCase()">
+                          {{ mem.estado }}
+                        </span>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <div class="no-data">
+              <span class="no-data-icon">📋</span>
+              <p>Este usuario no tiene historial de membresías.</p>
+            </div>
+          }
+        </div>
+
+        <div class="historial-card">
+          <div class="card-header">
+            <h2>
+              <span class="icon">💳</span>
+              Historial de Pagos
+            </h2>
+          </div>
+          @if (historialPagos.length > 0) {
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fecha de Pago</th>
+                    <th>Monto</th>
+                    <th>Método</th>
+                    <th>Referencia</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (pago of historialPagos; track pago.id) {
+                    <tr>
+                      <td>{{ pago.fechaPago | date:'dd/MM/yyyy HH:mm' }}</td>
+                      <td>
+                        <span class="precio">{{ pago.monto | currency:'S/ ' }}</span>
+                      </td>
+                      <td>
+                        <span class="metodo-pago">{{ pago.metodoPago }}</span>
+                      </td>
+                      <td>
+                        <span class="referencia">{{ pago.referencia || '-' }}</span>
+                      </td>
+                      <td>
+                        <span class="badge" [ngClass]="'status-' + pago.status.toLowerCase()">
+                          {{ pago.status }}
+                        </span>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <div class="no-data">
+              <span class="no-data-icon">💳</span>
+              <p>Este usuario no tiene pagos registrados.</p>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+</div>
