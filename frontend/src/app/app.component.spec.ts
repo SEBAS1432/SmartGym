@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'smartgym-app' title`, () => {
+  it(`should have the 'frontend-gymnasio' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('smartgym-app');
+    expect(app.title).toEqual('frontend-gymnasio');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, smartgym-app');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, frontend-gymnasio');
   });
 });

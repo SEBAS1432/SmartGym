@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "smartgym-app": {
+    "frontend-gymnasio": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,26 +17,29 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/smartgym-app",
+            "outputPath": "dist/frontend-gymnasio",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "stylePreprocessorOptions": {
+            "includePaths": [
+            "src"
+            ]
+          },
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -48,8 +51,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
                 }
               ],
               "outputHashing": "all"
@@ -64,12 +67,15 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+              "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "buildTarget": "smartgym-app:build:production"
+              "buildTarget": "frontend-gymnasio:build:production"
             },
             "development": {
-              "buildTarget": "smartgym-app:build:development"
+              "buildTarget": "frontend-gymnasio:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -85,9 +91,12 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
             "styles": [
               "src/styles.scss"
@@ -99,6 +108,6 @@
     }
   },
   "cli": {
-    "analytics": "a0234e09-0f97-496a-8acf-23128cf21544"
+    "analytics": false
   }
 }
