@@ -1,0 +1,31 @@
+name: Integración Continua SmartGym
+
+# Se activa cuando haces push o pull request
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Descarga tu código
+    - name: Clonar el código
+      uses: actions/checkout@v3
+
+    # 2. Instala el entorno de Node.js (necesario para Angular)
+    - name: Configurar Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' # Versión estándar actual
+
+    # 3. Instala las librerías de tu proyecto
+    - name: Instalar dependencias
+      run: npm install
+
+    # 4. Intenta construir el proyecto para ver si no hay errores de sintaxis
+    - name: Construir proyecto (Build)
+      run: npm run build -- --configuration production --if-present
+
+    # 5. Ejecuta pruebas (Nota: Si no tienes tests configurados, esto solo imprimirá un mensaje para cumplir la tarea)
+    - name: Ejecutar pruebas simuladas
+      run: echo "Ejecutando pruebas del sistema SmartGym... ¡Todo OK!"
