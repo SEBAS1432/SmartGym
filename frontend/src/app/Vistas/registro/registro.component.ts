@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { AutenticacionService } from '../../services/autenticacion.service';
 
 @Component({
@@ -10,7 +15,7 @@ import { AutenticacionService } from '../../services/autenticacion.service';
   // Importamos ReactiveFormsModule para los formularios y RouterLink para la navegación
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.scss'
+  styleUrl: './registro.component.scss',
 })
 export class RegistroComponent {
   registroForm: FormGroup;
@@ -23,11 +28,32 @@ export class RegistroComponent {
   ) {
     // Definimos la estructura del formulario y sus validaciones
     this.registroForm = this.fb.group({
-      nombres: ['', [Validators.required]], // Cambiado de 'nombre' a 'nombres'
-      apellidos: ['', [Validators.required]], // Campo nuevo
-      correo: ['', [Validators.required, Validators.email]],
-      telefono: ['', [Validators.required, Validators.pattern(/^[\+]?[0-9\s\-\(\)]+$/)]],
-      contrasena: ['', [Validators.required, Validators.minLength(6)]]
+      nombres: ['', [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      apellidos: ['', [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      correo: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(/^(?!\s*$).+/),
+        ],
+      ],
+      telefono: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(?!\s*$).+/), // no solo espacios
+          Validators.pattern(/^[\+]?[0-9\s\-\(\)]+$/),
+        ],
+      ],
+      contrasena: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.pattern(/^(?!\s*$).+/), // evita espacios vacíos
+        ],
+      ],
     });
   }
 
@@ -50,8 +76,10 @@ export class RegistroComponent {
       error: (error) => {
         console.error('Error en el registro:', error);
         // Mostramos un mensaje de error genérico
-        alert('Ocurrió un error durante el registro. Por favor, intenta de nuevo.');
-      }
+        alert(
+          'Ocurrió un error durante el registro. Por favor, intenta de nuevo.'
+        );
+      },
     });
   }
 }
