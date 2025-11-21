@@ -1,6 +1,6 @@
 // Variables
-$primary-yellow: #ffc107;
-$primary-orange: #ff9800;
+$primary-yellow: #62ff07;
+$primary-orange: #ff0037;
 $dark-bg: #000000;
 $dark-card: rgba(0, 0, 0, 0.85);
 
@@ -135,7 +135,7 @@ $dark-card: rgba(0, 0, 0, 0.85);
   animation: slideDown 0.5s ease-out;
   
   @keyframes slideDown {
-    from { transform: translateY(-100%); }
+    from { transform: translateY(-100%); -webkit-transform: translateY(-100%); -moz-transform: translateY(-100%); -ms-transform: translateY(-100%); -o-transform: translateY(-100%); }
     to { transform: translateY(0); }
   }
 }
@@ -159,7 +159,7 @@ $dark-card: rgba(0, 0, 0, 0.85);
   height: 45px;
   background: linear-gradient(135deg, $primary-yellow, $primary-orange);
   @apply rounded-full flex items-center justify-center;
-  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+  box-shadow: 0 4px 15px rgba(7, 255, 81, 0.4);
   transition: transform 0.3s ease;
   
   &:hover {
@@ -360,7 +360,7 @@ $dark-card: rgba(0, 0, 0, 0.85);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 40px rgba(255, 193, 7, 0.4);
+    text-shadow: 0 0 40px rgba(7, 218, 255, 0.4);
   }
   
   @media (max-width: 768px) {
@@ -388,13 +388,13 @@ $dark-card: rgba(0, 0, 0, 0.85);
 .stat-card {
   @apply flex flex-col items-center gap-2 p-4 rounded-xl;
   background: rgba(255, 193, 7, 0.08);
-  border: 1px solid rgba(255, 193, 7, 0.2);
+  border: 1px solid rgba(255, 7, 7, 0.2);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   
   &:hover {
     background: rgba(255, 193, 7, 0.12);
-    border-color: rgba(255, 193, 7, 0.4);
+    border-color: rgba(255, 7, 7, 0.4);
     transform: translateY(-5px);
   }
   
