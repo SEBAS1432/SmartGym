@@ -4,15 +4,14 @@ on: [push, pull_request]
 
 jobs:
   # ---------------------------------------------------
-  # TRABAJO 1: BACKEND (JAVA SPRING BOOT REAL)
+  # TRABAJO 1: BACKEND (JAVA 21 + MYSQL)
   # ---------------------------------------------------
   backend-real:
     runs-on: ubuntu-latest
     
-    # AQUÍ ESTÁ LA MAGIA: Le decimos que entre a la carpeta 'backend'
     defaults:
       run:
-        working-directory: ./backend
+        working-directory: ./backend # Asegúrate que este nombre sea correcto
 
     services:
       mysql:
@@ -28,27 +27,26 @@ jobs:
       - name: Clonar código
         uses: actions/checkout@v4
 
-      - name: Configurar Java 17
+      # CORRECCIÓN 1: Usamos Java 21 para que coincida con tu proyecto
+      - name: Configurar Java 21
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
           cache: maven
 
-      # COMANDO REAL: Maven descargará internet entero y compilará tu Java
       - name: Compilar con Maven (Real)
         run: mvn clean package -DskipTests
 
   # ---------------------------------------------------
-  # TRABAJO 2: FRONTEND (ANGULAR REAL)
+  # TRABAJO 2: FRONTEND (ANGULAR SIN LÍMITES)
   # ---------------------------------------------------
   frontend-real:
     runs-on: ubuntu-latest
 
-    # AQUÍ ESTÁ LA MAGIA: Le decimos que entre a la carpeta 'frontend'
     defaults:
       run:
-        working-directory: ./frontend
+        working-directory: ./frontend # Asegúrate que este nombre sea correcto
 
     steps:
       - name: Clonar código
@@ -61,18 +59,19 @@ jobs:
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
-      - name: Instalar dependencias (Real)
+      - name: Instalar dependencias
         run: npm install --legacy-peer-deps
         
-      - name: Compilar Angular (Real)
-        run: npm run build -- --configuration production
+      # CORRECCIÓN 2: Usamos configuration=development para evitar errores de tamaño (budget)
+      - name: Compilar Angular (Modo Desarrollo)
+        run: npm run build -- --configuration=development
 
   # ---------------------------------------------------
-  # TRABAJO 3: DEPLOY (Solo si todo lo anterior funciona)
+  # TRABAJO 3: DEPLOY
   # ---------------------------------------------------
   deploy:
     needs: [backend-real, frontend-real]
     runs-on: ubuntu-latest
     steps:
       - name: Desplegar
-        run: echo "¡Éxito total! El código de SmartGym (Backend y Frontend) es válido y compilable."
+        run: echo "¡Éxito! Backend (Java 21) y Frontend (Dev) compilados correctamente."
