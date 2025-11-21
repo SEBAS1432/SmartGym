@@ -1,1 +1,372 @@
-<p>ubicacion works!</p>
+<!-- Navegación -->
+<nav class="navbar">
+    <div class="nav-container">
+      <a routerLink="/" class="logo-link">
+        <div class="logo-circle">
+          <span class="logo-icon">🏋️</span>
+        </div>
+        <div class="logo-text">
+          Smart<span class="logo-accent">Gym</span>
+        </div>
+      </a>
+  
+        <!-- Menú hamburguesa para móvil -->
+        <button class="mobile-menu-toggle" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen">
+          <span class="hamburger-line" [class.active]="isMenuOpen"></span>
+          <span class="hamburger-line" [class.active]="isMenuOpen"></span>
+          <span class="hamburger-line" [class.active]="isMenuOpen"></span>
+        </button>
+  
+        <!-- Menú móvil -->
+        <div class="mobile-menu" [class.open]="isMenuOpen">
+          <div class="mobile-nav-links">
+            <a routerLink="/inicio" class="nav-link" (click)="toggleMenu()">
+              <span class="nav-icon">🏠</span>
+              Inicio
+            </a>
+            <a routerLink="/planes" class="nav-link" (click)="toggleMenu()">
+              <span class="nav-icon">💳</span>
+              Planes
+            </a>
+            <a routerLink="/ubicacion" class="nav-link" (click)="toggleMenu()">
+              <span class="nav-icon">📍</span>
+              Ubicación
+            </a>
+          </div>
+          
+          <div class="mobile-nav-actions">
+            @if (!autenticacionService.isLoggedIn()) {
+              <a routerLink="/login" class="btn-primary" (click)="toggleMenu()">
+                <span class="btn-text">Iniciar Sesión</span>
+                <span class="btn-arrow">→</span>
+              </a>
+              <a routerLink="/registro" class="btn-secondary" (click)="toggleMenu()">
+                <span class="btn-text">Registrarse</span>
+                <span class="btn-icon">✨</span>
+              </a>
+            } @else {
+              <span class="welcome-text">
+                Hola, <strong>{{ autenticacionService.getNombreUsuario() }}</strong>
+              </span>
+              <a routerLink="/dashboard" class="btn-primary" (click)="toggleMenu()">
+                <span class="btn-icon">👤</span>
+                <span class="btn-text">Mi Cuenta</span>
+              </a>
+              <button (click)="cerrarSesion(); toggleMenu()" class="btn-danger">
+                <span class="btn-text">Salir</span>
+                <span class="btn-icon">🚪</span>
+              </button>
+            }
+          </div>
+        </div>
+  
+        <!-- Menú desktop -->
+        <div class="nav-links desktop-only">
+          <a routerLink="/inicio" class="nav-link">
+            <span class="nav-icon">🏠</span>
+            Inicio
+          </a>
+          <a routerLink="/planes" class="nav-link">
+            <span class="nav-icon">💳</span>
+            Planes
+          </a>
+          <a routerLink="/ubicacion" class="nav-link">
+            <span class="nav-icon">📍</span>
+            Ubicación
+          </a>
+        </div>
+        <div class="nav-actions desktop-only">
+          @if (!autenticacionService.isLoggedIn()) {
+            <a routerLink="/login" class="btn-primary">
+              <span class="btn-text">Iniciar Sesión</span>
+              <span class="btn-arrow">→</span>
+            </a>
+            <a routerLink="/registro" class="btn-secondary">
+              <span class="btn-text">Registrarse</span>
+              <span class="btn-icon">✨</span>
+            </a>
+          } @else {
+            <div class="user-menu-container">
+              <button class="user-menu-toggle" (click)="toggleUserMenu()">
+                <span class="welcome-text">
+                  Hola, <strong>{{ autenticacionService.getNombreUsuario() }}</strong>
+                </span>
+                <span class="user-menu-arrow" [class.open]="isUserMenuOpen">▼</span>
+              </button>
+              @if (isUserMenuOpen) {
+                <div class="user-dropdown-menu">
+                  <a routerLink="/dashboard" class="dropdown-item">Mi Cuenta</a>
+                  <button (click)="cerrarSesion()" class="dropdown-item danger">Salir</button>
+                </div>
+              }
+            </div>
+          }
+        </div>
+    </div>
+  </nav>
+  
+   <div class="ubicacion-container">
+      <!-- Background overlay con efectos -->
+      <div class="background-overlay"></div>
+      
+      <!-- Elementos flotantes decorativos -->
+      <div class="floating-elements">
+        <div class="float-icon icon-1">📍</div>
+        <div class="float-icon icon-2">🗺️</div>
+        <div class="float-icon icon-3">🏋️</div>
+        <div class="float-icon icon-4">💪</div>
+        <div class="float-icon icon-5">⭐</div>
+        <div class="float-icon icon-6">🎯</div>
+      </div>
+    
+      <!-- Contenido principal -->
+      <div class="content-wrapper">
+        
+        <!-- Header de la página -->
+        <div class="page-header">
+          <div class="header-badge">
+            <span class="badge-icon">📍</span>
+            <span class="badge-text">Encuéntranos</span>
+          </div>
+          <h1 class="page-title">
+            <span class="title-main">Visita Nuestra</span>
+            <span class="title-accent">Sede Principal</span>
+          </h1>
+          <p class="page-subtitle">
+            <span class="subtitle-icon">✨</span>
+            Estamos abiertos 24/7 para ti.
+          </p>
+        </div>
+    
+        <!-- Grid principal -->
+        <div class="location-grid">
+    
+          <!-- Columna izquierda: Mapa e información -->
+          <div class="left-column">
+            
+            <!-- Mapa -->
+            <div class="map-container">
+              <div class="map-header">
+                <div class="map-header-content">
+                  <span class="map-icon">🗺️</span>
+                  <div>
+                    <h3 class="map-title">Encuéntranos en el Mapa</h3>
+                    <p class="map-subtitle">Fácil acceso y estacionamiento disponible</p>
+                  </div>
+                </div>
+              </div>
+              <div class="map-wrapper">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.589851608!2d-77.021020685186!3d-12.140226991404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b810d2077d8b%3A0x7339a2153856b37!2sMall%20del%20Sur!5e0!3m2!1ses-419!2spe!4v1678888888888!5m2!1ses-419!2spe" 
+                  width="100%" 
+                  height="100%" 
+                  style="border:0;" 
+                  allowfullscreen="" 
+                  loading="lazy" 
+                  class="map-iframe"
+                  referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              </div>
+            </div>
+    
+            <!-- Información de contacto -->
+            <div class="info-card">
+              <div class="info-header">
+                <span class="info-header-icon">📋</span>
+                <h2 class="info-title">Información de Contacto</h2>
+              </div>
+              
+              <div class="info-list">
+                <div class="info-item">
+                  <div class="info-icon-wrapper">
+                    <span class="info-icon">🏠</span>
+                  </div>
+                  <div class="info-content">
+                    <span class="info-label">Dirección</span>
+                    <span class="info-value">Av. Los Lirios 123, San Juan de Miraflores, Lima</span>
+                  </div>
+                </div>
+                
+                <div class="info-item">
+                  <div class="info-icon-wrapper">
+                    <span class="info-icon">⏰</span>
+                  </div>
+                  <div class="info-content">
+                    <span class="info-label">Horarios</span>
+                    <span class="info-value highlight">
+                      <span class="status-badge">Abierto 24/7</span>
+                      (Solo Miembros)
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="info-item">
+                  <div class="info-icon-wrapper">
+                    <span class="info-icon">📞</span>
+                  </div>
+                  <div class="info-content">
+                    <span class="info-label">Teléfono</span>
+                    <span class="info-value">+51 930 682 185</span>
+                  </div>
+                </div>
+                
+                <div class="info-item">
+                  <div class="info-icon-wrapper">
+                    <span class="info-icon">✉️</span>
+                  </div>
+                  <div class="info-content">
+                    <span class="info-label">Correo Electrónico</span>
+                    <span class="info-value">contacto&#64;smartgym.com</span>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Features adicionales -->
+              <div class="location-features">
+                <h3 class="features-title">Facilidades</h3>
+                <div class="features-grid">
+                  <div class="feature-item">
+                    <span class="feature-icon">🅿️</span>
+                    <span class="feature-text">Estacionamiento</span>
+                  </div>
+                  <div class="feature-item">
+                    <span class="feature-icon">🚿</span>
+                    <span class="feature-text">Duchas</span>
+                  </div>
+                  <div class="feature-item">
+                    <span class="feature-icon">🔐</span>
+                    <span class="feature-text">Lockers</span>
+                  </div>
+                  <div class="feature-item">
+                    <span class="feature-icon">♿</span>
+                    <span class="feature-text">Accesible</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+          </div>
+    
+          <!-- Columna derecha: Formulario de contacto -->
+          <div class="right-column">
+            <div class="contact-card">
+              <div class="contact-header">
+                <span class="contact-header-icon">💬</span>
+                <div>
+                  <h2 class="contact-title">Contáctanos</h2>
+                  <p class="contact-subtitle">¿Tienes preguntas? Envíanos un mensaje</p>
+                </div>
+              </div>
+              
+              <form class="contact-form">
+                <div class="form-group">
+                  <label for="nombre" class="form-label">
+                    <span class="label-icon">👤</span>
+                    Tu Nombre
+                  </label>
+                  <input 
+                    type="text" 
+                    id="nombre" 
+                    class="form-control" 
+                    placeholder="Juan Pérez"
+                    required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="email" class="form-label">
+                    <span class="label-icon">📧</span>
+                    Tu Correo
+                  </label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    class="form-control" 
+                    placeholder="juan&#64;correo.com"
+                    required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="telefono" class="form-label">
+                    <span class="label-icon">📱</span>
+                    Tu Teléfono (Opcional)
+                  </label>
+                  <input 
+                    type="tel" 
+                    id="telefono" 
+                    class="form-control" 
+                    placeholder="+51 999 999 999">
+                </div>
+                
+                <div class="form-group">
+                  <label for="mensaje" class="form-label">
+                    <span class="label-icon">✍️</span>
+                    Tu Mensaje
+                  </label>
+                  <textarea 
+                    id="mensaje" 
+                    class="form-control" 
+                    rows="5" 
+                    placeholder="Tengo una consulta sobre..."
+                    required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                  <span class="btn-content">
+                    <span class="btn-icon">📤</span>
+                    <span class="btn-text">Enviar Mensaje</span>
+                  </span>
+                  <div class="btn-glow"></div>
+                </button>
+              </form>
+              
+              <div class="divider">
+                <span class="divider-text">O también</span>
+              </div>
+    
+              <a 
+                href="https://api.whatsapp.com/send?phone=51930682185&text=Hola%2C%20tengo%20una%20consulta%20sobre%20SmartGym" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="btn-whatsapp">
+                <span class="whatsapp-icon">💬</span>
+                <div class="whatsapp-content">
+                  <span class="whatsapp-title">Chatea por WhatsApp</span>
+                  <span class="whatsapp-subtitle">Te respondemos al instante</span>
+                </div>
+                <span class="whatsapp-arrow">→</span>
+                <div class="btn-glow"></div>
+              </a>
+    
+              <!-- Horarios de atención -->
+              <div class="attention-hours">
+                <div class="hours-header">
+                  <span class="hours-icon">🕐</span>
+                  <h3 class="hours-title">Horarios de Atención</h3>
+                </div>
+                <div class="hours-list">
+                  <div class="hours-item">
+                    <span class="hours-day">Lunes - Viernes</span>
+                    <span class="hours-time">8:00 AM - 10:00 PM</span>
+                  </div>
+                  <div class="hours-item">
+                    <span class="hours-day">Sábados</span>
+                    <span class="hours-time">9:00 AM - 8:00 PM</span>
+                  </div>
+                  <div class="hours-item">
+                    <span class="hours-day">Domingos</span>
+                    <span class="hours-time">10:00 AM - 6:00 PM</span>
+                  </div>
+                </div>
+                <div class="hours-note">
+                  <span class="note-icon">⭐</span>
+                  <span class="note-text">Gimnasio abierto 24/7 para miembros</span>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+    
+        </div>
+    
+      </div>
+    </div>

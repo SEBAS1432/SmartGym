@@ -1,1 +1,287 @@
-<p>planes works!</p>
+<!-- Navegación -->
+<nav class="navbar">
+    <div class="nav-container">
+      <a routerLink="/" class="logo-link">
+        <div class="logo-circle">
+          <span class="logo-icon">🏋️</span>
+        </div>
+        <div class="logo-text">
+          Smart<span class="logo-accent">Gym</span>
+        </div>
+      </a>
+  
+        <!-- Menú hamburguesa para móvil -->
+        <button class="mobile-menu-toggle" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen">
+          <span class="hamburger-line" [class.active]="isMenuOpen"></span>
+          <span class="hamburger-line" [class.active]="isMenuOpen"></span>
+          <span class="hamburger-line" [class.active]="isMenuOpen"></span>
+        </button>
+  
+        <!-- Menú móvil -->
+        <div class="mobile-menu" [class.open]="isMenuOpen">
+          <div class="mobile-nav-links">
+            <a routerLink="/inicio" class="nav-link" (click)="toggleMenu()">
+              <span class="nav-icon">🏠</span>
+              Inicio
+            </a>
+            <a routerLink="/planes" class="nav-link" (click)="toggleMenu()">
+              <span class="nav-icon">💳</span>
+              Planes
+            </a>
+            <a routerLink="/ubicacion" class="nav-link" (click)="toggleMenu()">
+              <span class="nav-icon">📍</span>
+              Ubicación
+            </a>
+          </div>
+          
+          <div class="mobile-nav-actions">
+            @if (!autenticacionService.isLoggedIn()) {
+              <a routerLink="/login" class="btn-primary" (click)="toggleMenu()">
+                <span class="btn-text">Iniciar Sesión</span>
+                <span class="btn-arrow">→</span>
+              </a>
+              <a routerLink="/registro" class="btn-secondary" (click)="toggleMenu()">
+                <span class="btn-text">Registrarse</span>
+                <span class="btn-icon">✨</span>
+              </a>
+            } @else {
+              <span class="welcome-text">
+                Hola, <strong>{{ autenticacionService.getNombreUsuario() }}</strong>
+              </span>
+              <a routerLink="/dashboard" class="btn-primary" (click)="toggleMenu()">
+                <span class="btn-icon">👤</span>
+                <span class="btn-text">Mi Cuenta</span>
+              </a>
+              <button (click)="cerrarSesion(); toggleMenu()" class="btn-danger">
+                <span class="btn-text">Salir</span>
+                <span class="btn-icon">🚪</span>
+              </button>
+            }
+          </div>
+        </div>
+  
+        <!-- Menú desktop -->
+        <div class="nav-links desktop-only">
+          <a routerLink="/inicio" class="nav-link">
+            <span class="nav-icon">🏠</span>
+            Inicio
+          </a>
+          <a routerLink="/planes" class="nav-link">
+            <span class="nav-icon">💳</span>
+            Planes
+          </a>
+          <a routerLink="/ubicacion" class="nav-link">
+            <span class="nav-icon">📍</span>
+            Ubicación
+          </a>
+        </div>
+        <div class="nav-actions desktop-only">
+          @if (!autenticacionService.isLoggedIn()) {
+            <a routerLink="/login" class="btn-primary">
+              <span class="btn-text">Iniciar Sesión</span>
+              <span class="btn-arrow">→</span>
+            </a>
+            <a routerLink="/registro" class="btn-secondary">
+              <span class="btn-text">Registrarse</span>
+              <span class="btn-icon">✨</span>
+            </a>
+          } @else {
+            <div class="user-menu-container">
+              <button class="user-menu-toggle" (click)="toggleUserMenu()">
+                <span class="welcome-text">
+                  Hola, <strong>{{ autenticacionService.getNombreUsuario() }}</strong>
+                </span>
+                <span class="user-menu-arrow" [class.open]="isUserMenuOpen">▼</span>
+              </button>
+              @if (isUserMenuOpen) {
+                <div class="user-dropdown-menu">
+                  <a routerLink="/dashboard" class="dropdown-item">Mi Cuenta</a>
+                  <button (click)="cerrarSesion()" class="dropdown-item danger">Salir</button>
+                </div>
+              }
+            </div>
+          }
+        </div>
+    </div>
+  </nav>
+  <div class="planes-container">
+      <!-- Background overlay con efectos -->
+      <div class="background-overlay"></div>
+      
+      <!-- Elementos flotantes decorativos -->
+      <div class="floating-elements">
+        <div class="float-icon icon-1">💪</div>
+        <div class="float-icon icon-2">🏋️</div>
+        <div class="float-icon icon-3">⚡</div>
+        <div class="float-icon icon-4">🔥</div>
+        <div class="float-icon icon-5">💯</div>
+        <div class="float-icon icon-6">🎯</div>
+      </div>
+    
+  
+      
+      <!-- Contenido principal -->
+      <div class="content-wrapper">
+        
+        <!-- Header de la página -->
+        <div class="page-header">
+          <div class="header-badge">
+            <span class="badge-icon">💳</span>
+            <span class="badge-text">Membresías</span>
+          </div>
+          <h1 class="page-title">
+            <span class="title-main">Encuentra el Plan</span>
+            <span class="title-accent">Perfecto Para Ti</span>
+          </h1>
+          <p class="page-subtitle">
+            <span class="subtitle-icon">✨</span>
+            Sin contratos, sin ataduras. Cancela cuando quieras.
+          </p>
+        </div>
+      
+        <!-- Grid de planes -->
+        <div class="plans-grid">
+      
+          <!-- Plan Semanal -->
+          <div class="plan-card">
+            <h3 class="plan-title">Semanal</h3>
+            <div class="plan-pricing">
+              <p class="plan-price">
+                S/ 30 <span class="plan-period">/semana</span>
+              </p>
+            </div>
+            <p class="plan-description">Perfecto para probar o visitas cortas.</p>
+            <ul class="plan-features">
+              <li><span class="icon-check">✓</span> Acceso 24/7</li>
+              <li><span class="icon-check">✓</span> Todas las máquinas</li>
+              <li><span class="icon-check">✓</span> Vestuarios y duchas</li>
+              <li><span class="icon-cross">✕</span> Clases grupales</li>
+            </ul>
+            <a routerLink="/planes" class="plan-button">Empezar Ahora</a>
+          </div>
+      
+          <!-- Plan Mensual (Destacado) -->
+          <div class="plan-card featured">
+            <div class="featured-badge">Promoción</div>
+            
+            <h3 class="plan-title">Mensual</h3>
+            <div class="plan-pricing">
+              <p class="plan-price">
+                S/ 100 <span class="plan-period">/mes</span>
+              </p>
+            </div>
+            <p class="plan-description">El más popular. Todo lo que necesitas.</p>
+            <ul class="plan-features">
+              <li><span class="icon-check">✓</span> Acceso 24/7</li>
+              <li><span class="icon-check">✓</span> Todas las máquinas</li>
+              <li><span class="icon-check">✓</span> Vestuarios y duchas</li>
+              <li><span class="icon-check">✓</span> Acceso a todas las clases</li>
+            </ul>
+            <a routerLink="/planes" class="plan-button featured-button">Seleccionar Plan</a>
+          </div>
+      
+          <!-- Plan Anual -->
+          <div class="plan-card">
+            <h3 class="plan-title">Anual</h3>
+            <div class="plan-pricing">
+              <p class="plan-price">
+                S/ 600 <span class="plan-period">/año</span>
+              </p>
+            </div>
+            <p class="plan-description">El mejor valor. Un solo pago y olvídate.</p>
+            <ul class="plan-features">
+              <li><span class="icon-check">✓</span> Todo lo del Plan Mensual</li>
+              <li><span class="icon-check">✓</span> 2 meses gratis</li>
+              <li><span class="icon-check">✓</span> Asesoría nutricional inicial</li>
+            </ul>
+            <a routerLink="/planes" class="plan-button">Ahorrar en Grande</a>
+          </div>
+        </div>
+      
+        <!-- Sección de comparación -->
+        <div class="comparison-section">
+          <div class="section-header">
+            <h2 class="section-title">Compara los Planes</h2>
+            <p class="section-subtitle">Encuentra el plan perfecto para tus objetivos</p>
+          </div>
+      
+          <div class="comparison-table-wrapper">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="feature-column">Ventaja</th>
+                  <th scope="col" class="plan-column">Semanal</th>
+                  <th scope="col" class="plan-column featured-column">Mensual</th>
+                  <th scope="col" class="plan-column">Anual</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="feature-name">Acceso 24/7 a máquinas</td>
+                  <td class="plan-value"><span class="check-icon">✓</span></td>
+                  <td class="plan-value featured-cell"><span class="check-icon">✓</span></td>
+                  <td class="plan-value"><span class="check-icon">✓</span></td>
+                </tr>
+                <tr>
+                  <td class="feature-name">Vestuarios y duchas</td>
+                  <td class="plan-value"><span class="check-icon">✓</span></td>
+                  <td class="plan-value featured-cell"><span class="check-icon">✓</span></td>
+                  <td class="plan-value"><span class="check-icon">✓</span></td>
+                </tr>
+                <tr>
+                  <td class="feature-name">Acceso a App de Progreso</td>
+                  <td class="plan-value"><span class="cross-icon">✕</span></td>
+                  <td class="plan-value featured-cell"><span class="check-icon">✓</span></td>
+                  <td class="plan-value"><span class="check-icon">✓</span></td>
+                </tr>
+                <tr>
+                  <td class="feature-name">Acceso a Clases Grupales</td>
+                  <td class="plan-value"><span class="cross-icon">✕</span></td>
+                  <td class="plan-value featured-cell"><span class="check-icon">✓</span></td>
+                  <td class="plan-value"><span class="check-icon">✓</span></td>
+                </tr>
+                <tr>
+                  <td class="feature-name">Asesoría Nutricional</td>
+                  <td class="plan-value"><span class="cross-icon">✕</span></td>
+                  <td class="plan-value featured-cell"><span class="cross-icon">✕</span></td>
+                  <td class="plan-value"><span class="check-icon">✓</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    
+        <!-- CTA Final -->
+        <div class="final-cta">
+          <div class="cta-content">
+            <div class="cta-icon">🚀</div>
+            <h2 class="cta-title">¿Listo para Empezar?</h2>
+            <p class="cta-description">Únete hoy y comienza tu transformación</p>
+            <div class="cta-buttons">
+              <a routerLink="/registro" class="cta-button primary">
+                <span>Comienza Ahora</span>
+                <span class="arrow">→</span>
+              </a>
+              <a routerLink="/ubicacion" class="cta-button secondary">
+                <span>Contáctanos</span>
+              </a>
+            </div>
+            <div class="trust-badges">
+              <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span class="trust-text">Sin permanencia</span>
+              </div>
+              <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span class="trust-text">Cancela cuando quieras</span>
+              </div>
+              <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span class="trust-text">Primera semana gratis</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+    </div>
