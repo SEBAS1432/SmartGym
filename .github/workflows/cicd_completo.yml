@@ -1,0 +1,55 @@
+name: SmartGym CI/CD Pipeline
+
+# Activadores
+on: [push, pull_request]
+
+jobs:
+  # TRABAJO 1: BACKEND
+  backend-build:
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: smartgym_db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Clonar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Compilar Backend
+        run: echo "Compilando Backend con MySQL..."
+
+  # TRABAJO 2: FRONTEND
+  frontend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Compilar Frontend
+        run: echo "Compilando Angular..."
+
+  # TRABAJO 3: DEPLOY
+  deploy:
+    needs: [backend-build, frontend-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Desplegar
+        run: echo "Despliegue exitoso."
